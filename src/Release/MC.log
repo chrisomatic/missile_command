@@ -1,0 +1,68 @@
+﻿  program.c
+c:\dev\c\mc\src\cdraw.h(19): warning C4333: '>>': right shift by too large amount, data loss
+c:\dev\c\mc\src\cdraw.h(20): warning C4333: '>>': right shift by too large amount, data loss
+c:\dev\c\mc\src\cdraw.h(23): warning C4244: 'initializing': conversion from 'double' to 'unsigned char', possible loss of data
+c:\dev\c\mc\src\cdraw.h(24): warning C4244: 'initializing': conversion from 'double' to 'unsigned char', possible loss of data
+c:\dev\c\mc\src\cdraw.h(25): warning C4244: 'initializing': conversion from 'double' to 'unsigned char', possible loss of data
+c:\dev\c\mc\src\cdraw.h(36): warning C4133: '<': incompatible types - from 'void *' to 'int *'
+c:\dev\c\mc\src\cdraw.h(52): warning C4244: 'initializing': conversion from 'double' to 'unsigned char', possible loss of data
+c:\dev\c\mc\src\cdraw.h(53): warning C4244: 'initializing': conversion from 'double' to 'unsigned char', possible loss of data
+c:\dev\c\mc\src\cdraw.h(54): warning C4244: 'initializing': conversion from 'double' to 'unsigned char', possible loss of data
+c:\dev\c\mc\src\cdraw.h(206): warning C4244: 'function': conversion from 'double' to 'int', possible loss of data
+c:\dev\c\mc\src\cdraw.h(207): warning C4244: 'function': conversion from 'double' to 'int', possible loss of data
+c:\dev\c\mc\src\cdraw.h(211): warning C4244: 'function': conversion from 'double' to 'int', possible loss of data
+c:\dev\c\mc\src\cdraw.h(212): warning C4244: 'function': conversion from 'double' to 'int', possible loss of data
+c:\dev\c\mc\src\cdraw.h(225): warning C4244: 'function': conversion from 'double' to 'int', possible loss of data
+c:\dev\c\mc\src\cdraw.h(226): warning C4244: 'function': conversion from 'double' to 'int', possible loss of data
+c:\dev\c\mc\src\cdraw.h(230): warning C4244: 'function': conversion from 'double' to 'int', possible loss of data
+c:\dev\c\mc\src\cdraw.h(231): warning C4244: 'function': conversion from 'double' to 'int', possible loss of data
+c:\dev\c\mc\src\cdraw.h(237): warning C4244: 'initializing': conversion from 'double' to 'int', possible loss of data
+c:\dev\c\mc\src\cdraw.h(246): warning C4244: 'initializing': conversion from 'double' to 'int', possible loss of data
+c:\dev\c\mc\src\cdraw.h(265): warning C4020: 'draw_line': too many actual parameters
+c:\dev\c\mc\src\cdraw.h(266): warning C4020: 'draw_line': too many actual parameters
+c:\dev\c\mc\src\cdraw.h(267): warning C4020: 'draw_line': too many actual parameters
+c:\dev\c\mc\src\cdraw.h(268): warning C4020: 'draw_line': too many actual parameters
+c:\dev\c\mc\src\cfontsimple.h(53): warning C4133: '<': incompatible types - from 'void *' to 'unsigned char *'
+c:\dev\c\mc\src\cfontsimple.h(80): warning C4090: 'initializing': different 'const' qualifiers
+program.c(144): warning C4244: 'function': conversion from 'time_t' to 'unsigned int', possible loss of data
+program.c(248): warning C4244: 'initializing': conversion from 'int' to 'float', possible loss of data
+program.c(311): warning C4244: 'return': conversion from 'double' to 'float', possible loss of data
+program.c(330): warning C4244: 'function': conversion from 'float' to 'int', possible loss of data
+program.c(331): warning C4244: 'function': conversion from 'float' to 'int', possible loss of data
+program.c(332): warning C4244: 'function': conversion from 'float' to 'int', possible loss of data
+program.c(337): warning C4244: 'function': conversion from 'float' to 'int', possible loss of data
+program.c(338): warning C4244: 'function': conversion from 'float' to 'int', possible loss of data
+program.c(345): warning C4244: 'function': conversion from 'float' to 'int', possible loss of data
+program.c(344): warning C4244: 'initializing': conversion from 'float' to 'int', possible loss of data
+program.c(378): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
+program.c(379): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
+program.c(380): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
+program.c(381): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
+program.c(498): warning C4244: 'function': conversion from 'float' to 'int', possible loss of data
+program.c(499): warning C4244: 'function': conversion from 'float' to 'int', possible loss of data
+program.c(495): warning C4244: 'initializing': conversion from 'LONG' to 'float', possible loss of data
+program.c(496): warning C4244: 'initializing': conversion from 'LONG' to 'float', possible loss of data
+program.c(498): warning C4244: 'initializing': conversion from 'int' to 'float', possible loss of data
+program.c(499): warning C4244: 'initializing': conversion from 'int' to 'float', possible loss of data
+program.c(501): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
+program.c(502): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
+program.c(503): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
+program.c(541): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
+program.c(542): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
+program.c(543): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
+program.c(544): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
+program.c(545): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
+program.c(546): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
+program.c(532): warning C4244: 'initializing': conversion from 'int' to 'float', possible loss of data
+program.c(533): warning C4244: 'initializing': conversion from 'int' to 'float', possible loss of data
+program.c(535): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
+program.c(536): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
+program.c(537): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
+program.c(733): warning C4033: 'MainWndProc' must return a value
+  Generating code
+  2 of 88 functions ( 2.3%) were compiled, the rest were copied from previous compilation.
+    0 functions were new in current compilation
+    0 functions had inline decision re-evaluated but remain unchanged
+  Finished generating code
+  MC.vcxproj -> C:\dev\C\MC\src\Release\MC.exe
+  MC.vcxproj -> C:\dev\C\MC\src\Release\MC.pdb (Full PDB)

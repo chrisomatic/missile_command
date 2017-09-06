@@ -1,0 +1,5 @@
+Missile Command Game ideas:
+
+- Waves of missiles (10 Waves), increase missile speed and density each wave.
+- Powerups (Additional House, Bigger explosions, Faster missiles, Unlimited missiles, Guided missiles, Giant missiles,tiered shot missiles (like fireworks).
+

@@ -1,3 +1,39 @@
+static void draw_rect8(int x, int y, int w, int h, char color, BOOL filled)
+{
+    unsigned char* dst = (unsigned char*)back_buffer;
+    dst = dst + (buffer_width*y) + x;
+
+    if (dst < (unsigned char*)back_buffer)
+        return;
+    if (dst + (buffer_width*h)+w > (unsigned char*)back_buffer + (buffer_width*(buffer_height + 1)))
+        return;
+
+    if(filled)
+    {
+        for(int i = 0; i < h; ++i)
+        {
+            memset(dst,color,w);
+            dst += buffer_width;
+        }
+    }
+    else
+    {
+        //top line
+        memset(dst,color,w);
+        dst += buffer_width;
+
+        for(int i = 0; i < h; ++i)
+        {
+            *dst = color;
+            dst+= w;
+            *dst = color;
+            dst += (buffer_width - w);
+        }
+        
+        //bottom line
+        memset(dst,color,w);
+    }
+}
 static void draw_pixel8(int x, int y, int color, double c)
 {
 	// c is brightness. 0 <= c <= 1

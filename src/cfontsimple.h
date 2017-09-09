@@ -3,6 +3,8 @@
 #define GLYPH_WIDTH     10
 #define GLYPH_HEIGHT    12
 #define MISSILE_CHAR    127
+#define MISSILE_WIDTH   6
+#define MISSILE_HEIGHT  12
 #define STB_IMAGE_IMPLEMENTATION
 #define STBI_ONLY_PNG 
 #include "stb_image.h"
@@ -50,9 +52,6 @@ void draw_char(const char c, int x, int y, char color)
     unsigned char* dst = back_buffer;
     dst = dst + (buffer_width*y) + x;
 
-    if (dst < back_buffer || dst > (unsigned char*)back_buffer + (buffer_width*buffer_height))
-        return;
-
     int relative_char_position = c - 32;
 
     int src_x = (relative_char_position % 16)*(GLYPH_WIDTH + 2);
@@ -65,6 +64,9 @@ void draw_char(const char c, int x, int y, char color)
 	{
 		for (int j = 0; j < GLYPH_WIDTH; ++j)
 		{
+			if (dst < back_buffer || dst >(unsigned char*)back_buffer + (buffer_width*buffer_height))
+				return;
+
 			if(*src > 0)
 				*dst = color;
 			++dst; ++src;
@@ -75,7 +77,7 @@ void draw_char(const char c, int x, int y, char color)
     }
 }
 
-void draw_string(const char *s, int x, int y, char color)
+static void draw_string(char *s, int x, int y, char color)
 {
 	char* p = s;
 

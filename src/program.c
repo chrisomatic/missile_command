@@ -103,7 +103,7 @@ typedef struct
 
 Powerup powerup;
 
-int POWERUPCOUNTER_MAX = 1000;
+int POWERUPCOUNTER_MAX = 2000;
 int POWERUPLIFETIME_MAX = 500;
 
 int powerup_counter;

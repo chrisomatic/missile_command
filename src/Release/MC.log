@@ -1,84 +1,82 @@
 ﻿  program.c
-c:\dev\git\missile_command\src\cdraw.h(55): warning C4333: '>>': right shift by too large amount, data loss
-c:\dev\git\missile_command\src\cdraw.h(56): warning C4333: '>>': right shift by too large amount, data loss
-c:\dev\git\missile_command\src\cdraw.h(59): warning C4244: 'initializing': conversion from 'double' to 'unsigned char', possible loss of data
-c:\dev\git\missile_command\src\cdraw.h(60): warning C4244: 'initializing': conversion from 'double' to 'unsigned char', possible loss of data
-c:\dev\git\missile_command\src\cdraw.h(61): warning C4244: 'initializing': conversion from 'double' to 'unsigned char', possible loss of data
-c:\dev\git\missile_command\src\cdraw.h(72): warning C4133: '<': incompatible types - from 'void *' to 'int *'
-c:\dev\git\missile_command\src\cdraw.h(88): warning C4244: 'initializing': conversion from 'double' to 'unsigned char', possible loss of data
-c:\dev\git\missile_command\src\cdraw.h(89): warning C4244: 'initializing': conversion from 'double' to 'unsigned char', possible loss of data
-c:\dev\git\missile_command\src\cdraw.h(90): warning C4244: 'initializing': conversion from 'double' to 'unsigned char', possible loss of data
-c:\dev\git\missile_command\src\cdraw.h(242): warning C4244: 'function': conversion from 'double' to 'int', possible loss of data
-c:\dev\git\missile_command\src\cdraw.h(243): warning C4244: 'function': conversion from 'double' to 'int', possible loss of data
-c:\dev\git\missile_command\src\cdraw.h(247): warning C4244: 'function': conversion from 'double' to 'int', possible loss of data
-c:\dev\git\missile_command\src\cdraw.h(248): warning C4244: 'function': conversion from 'double' to 'int', possible loss of data
-c:\dev\git\missile_command\src\cdraw.h(261): warning C4244: 'function': conversion from 'double' to 'int', possible loss of data
-c:\dev\git\missile_command\src\cdraw.h(262): warning C4244: 'function': conversion from 'double' to 'int', possible loss of data
-c:\dev\git\missile_command\src\cdraw.h(266): warning C4244: 'function': conversion from 'double' to 'int', possible loss of data
-c:\dev\git\missile_command\src\cdraw.h(267): warning C4244: 'function': conversion from 'double' to 'int', possible loss of data
-c:\dev\git\missile_command\src\cdraw.h(273): warning C4244: 'initializing': conversion from 'double' to 'int', possible loss of data
-c:\dev\git\missile_command\src\cdraw.h(282): warning C4244: 'initializing': conversion from 'double' to 'int', possible loss of data
-c:\dev\git\missile_command\src\cdraw.h(301): warning C4020: 'draw_line': too many actual parameters
-c:\dev\git\missile_command\src\cdraw.h(302): warning C4020: 'draw_line': too many actual parameters
-c:\dev\git\missile_command\src\cdraw.h(303): warning C4020: 'draw_line': too many actual parameters
-c:\dev\git\missile_command\src\cdraw.h(304): warning C4020: 'draw_line': too many actual parameters
-c:\dev\git\missile_command\src\cutil.h(69): warning C4244: 'return': conversion from 'double' to 'float', possible loss of data
-c:\dev\git\missile_command\src\cfontsimple.h(67): warning C4133: '<': incompatible types - from 'void *' to 'unsigned char *'
-program.c(176): warning C4244: 'function': conversion from 'time_t' to 'unsigned int', possible loss of data
-program.c(252): warning C4244: 'function': conversion from 'int' to 'float', possible loss of data
-program.c(276): warning C4244: 'function': conversion from 'int' to 'float', possible loss of data
-program.c(290): warning C4244: '+=': conversion from 'double' to 'float', possible loss of data
-program.c(291): warning C4244: '+=': conversion from 'double' to 'float', possible loss of data
-program.c(300): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
-program.c(301): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
-program.c(361): warning C4244: 'function': conversion from 'int' to 'float', possible loss of data
-program.c(356): warning C4244: 'initializing': conversion from 'int' to 'float', possible loss of data
-program.c(394): warning C4244: 'function': conversion from 'float' to 'int', possible loss of data
-program.c(395): warning C4244: 'function': conversion from 'float' to 'int', possible loss of data
-program.c(396): warning C4244: 'function': conversion from 'float' to 'int', possible loss of data
-program.c(398): warning C4244: 'function': conversion from 'float' to 'int', possible loss of data
-program.c(399): warning C4244: 'function': conversion from 'float' to 'int', possible loss of data
-program.c(400): warning C4244: 'function': conversion from 'float' to 'int', possible loss of data
-program.c(405): warning C4244: 'function': conversion from 'float' to 'int', possible loss of data
-program.c(408): warning C4244: 'function': conversion from 'float' to 'int', possible loss of data
-program.c(409): warning C4244: 'function': conversion from 'float' to 'int', possible loss of data
-program.c(410): warning C4244: 'function': conversion from 'float' to 'int', possible loss of data
-program.c(411): warning C4244: 'function': conversion from 'float' to 'int', possible loss of data
-program.c(412): warning C4244: 'function': conversion from 'float' to 'int', possible loss of data
-program.c(414): warning C4244: 'function': conversion from 'float' to 'int', possible loss of data
-program.c(419): warning C4244: 'function': conversion from 'float' to 'int', possible loss of data
-program.c(420): warning C4244: 'function': conversion from 'float' to 'int', possible loss of data
-program.c(426): warning C4244: 'function': conversion from 'float' to 'int', possible loss of data
-program.c(458): warning C4244: 'function': conversion from 'float' to 'int', possible loss of data
-program.c(457): warning C4244: 'initializing': conversion from 'float' to 'int', possible loss of data
-program.c(499): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
-program.c(500): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
-program.c(501): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
-program.c(502): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
-program.c(653): warning C4244: 'function': conversion from 'float' to 'int', possible loss of data
-program.c(654): warning C4244: 'function': conversion from 'float' to 'int', possible loss of data
-program.c(650): warning C4244: 'initializing': conversion from 'LONG' to 'float', possible loss of data
-program.c(651): warning C4244: 'initializing': conversion from 'LONG' to 'float', possible loss of data
-program.c(653): warning C4244: 'initializing': conversion from 'int' to 'float', possible loss of data
-program.c(654): warning C4244: 'initializing': conversion from 'int' to 'float', possible loss of data
-program.c(656): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
-program.c(657): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
-program.c(658): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
-program.c(696): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
-program.c(697): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
-program.c(698): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
-program.c(699): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
-program.c(700): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
-program.c(701): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
-program.c(687): warning C4244: 'initializing': conversion from 'int' to 'float', possible loss of data
-program.c(688): warning C4244: 'initializing': conversion from 'int' to 'float', possible loss of data
-program.c(690): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
-program.c(691): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
-program.c(692): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
-program.c(894): warning C4033: 'MainWndProc' must return a value
+c:\dev\git\missile_command-master\src\cdraw.h(55): warning C4333: '>>' : right shift by too large amount, data loss
+c:\dev\git\missile_command-master\src\cdraw.h(56): warning C4333: '>>' : right shift by too large amount, data loss
+c:\dev\git\missile_command-master\src\cdraw.h(59): warning C4244: 'initializing' : conversion from 'double' to 'unsigned char', possible loss of data
+c:\dev\git\missile_command-master\src\cdraw.h(60): warning C4244: 'initializing' : conversion from 'double' to 'unsigned char', possible loss of data
+c:\dev\git\missile_command-master\src\cdraw.h(61): warning C4244: 'initializing' : conversion from 'double' to 'unsigned char', possible loss of data
+c:\dev\git\missile_command-master\src\cdraw.h(72): warning C4133: '<' : incompatible types - from 'void *' to 'int *'
+c:\dev\git\missile_command-master\src\cdraw.h(88): warning C4244: 'initializing' : conversion from 'double' to 'unsigned char', possible loss of data
+c:\dev\git\missile_command-master\src\cdraw.h(89): warning C4244: 'initializing' : conversion from 'double' to 'unsigned char', possible loss of data
+c:\dev\git\missile_command-master\src\cdraw.h(90): warning C4244: 'initializing' : conversion from 'double' to 'unsigned char', possible loss of data
+c:\dev\git\missile_command-master\src\cdraw.h(242): warning C4244: 'function' : conversion from 'double' to 'int', possible loss of data
+c:\dev\git\missile_command-master\src\cdraw.h(243): warning C4244: 'function' : conversion from 'double' to 'int', possible loss of data
+c:\dev\git\missile_command-master\src\cdraw.h(247): warning C4244: 'function' : conversion from 'double' to 'int', possible loss of data
+c:\dev\git\missile_command-master\src\cdraw.h(248): warning C4244: 'function' : conversion from 'double' to 'int', possible loss of data
+c:\dev\git\missile_command-master\src\cdraw.h(261): warning C4244: 'function' : conversion from 'double' to 'int', possible loss of data
+c:\dev\git\missile_command-master\src\cdraw.h(262): warning C4244: 'function' : conversion from 'double' to 'int', possible loss of data
+c:\dev\git\missile_command-master\src\cdraw.h(266): warning C4244: 'function' : conversion from 'double' to 'int', possible loss of data
+c:\dev\git\missile_command-master\src\cdraw.h(267): warning C4244: 'function' : conversion from 'double' to 'int', possible loss of data
+c:\dev\git\missile_command-master\src\cdraw.h(273): warning C4244: 'initializing' : conversion from 'double' to 'int', possible loss of data
+c:\dev\git\missile_command-master\src\cdraw.h(282): warning C4244: 'initializing' : conversion from 'double' to 'int', possible loss of data
+c:\dev\git\missile_command-master\src\cdraw.h(301): warning C4020: 'draw_line' : too many actual parameters
+c:\dev\git\missile_command-master\src\cdraw.h(302): warning C4020: 'draw_line' : too many actual parameters
+c:\dev\git\missile_command-master\src\cdraw.h(303): warning C4020: 'draw_line' : too many actual parameters
+c:\dev\git\missile_command-master\src\cdraw.h(304): warning C4020: 'draw_line' : too many actual parameters
+c:\dev\git\missile_command-master\src\cutil.h(69): warning C4244: 'return' : conversion from 'double' to 'float', possible loss of data
+c:\dev\git\missile_command-master\src\cfontsimple.h(67): warning C4133: '<' : incompatible types - from 'void *' to 'unsigned char *'
+program.c(177): warning C4244: 'function' : conversion from 'time_t' to 'unsigned int', possible loss of data
+program.c(257): warning C4244: 'function' : conversion from 'int' to 'float', possible loss of data
+program.c(281): warning C4244: 'function' : conversion from 'int' to 'float', possible loss of data
+program.c(295): warning C4244: '+=' : conversion from 'double' to 'float', possible loss of data
+program.c(296): warning C4244: '+=' : conversion from 'double' to 'float', possible loss of data
+program.c(305): warning C4244: '=' : conversion from 'int' to 'float', possible loss of data
+program.c(306): warning C4244: '=' : conversion from 'int' to 'float', possible loss of data
+program.c(365): warning C4244: 'initializing' : conversion from 'int' to 'float', possible loss of data
+program.c(370): warning C4244: 'function' : conversion from 'int' to 'float', possible loss of data
+program.c(410): warning C4244: 'function' : conversion from 'float' to 'int', possible loss of data
+program.c(411): warning C4244: 'function' : conversion from 'float' to 'int', possible loss of data
+program.c(412): warning C4244: 'function' : conversion from 'float' to 'int', possible loss of data
+program.c(414): warning C4244: 'function' : conversion from 'float' to 'int', possible loss of data
+program.c(415): warning C4244: 'function' : conversion from 'float' to 'int', possible loss of data
+program.c(416): warning C4244: 'function' : conversion from 'float' to 'int', possible loss of data
+program.c(421): warning C4244: 'function' : conversion from 'float' to 'int', possible loss of data
+program.c(424): warning C4244: 'function' : conversion from 'float' to 'int', possible loss of data
+program.c(425): warning C4244: 'function' : conversion from 'float' to 'int', possible loss of data
+program.c(426): warning C4244: 'function' : conversion from 'float' to 'int', possible loss of data
+program.c(427): warning C4244: 'function' : conversion from 'float' to 'int', possible loss of data
+program.c(428): warning C4244: 'function' : conversion from 'float' to 'int', possible loss of data
+program.c(430): warning C4244: 'function' : conversion from 'float' to 'int', possible loss of data
+program.c(435): warning C4244: 'function' : conversion from 'float' to 'int', possible loss of data
+program.c(436): warning C4244: 'function' : conversion from 'float' to 'int', possible loss of data
+program.c(442): warning C4244: 'function' : conversion from 'float' to 'int', possible loss of data
+program.c(473): warning C4244: 'initializing' : conversion from 'float' to 'int', possible loss of data
+program.c(474): warning C4244: 'function' : conversion from 'float' to 'int', possible loss of data
+program.c(516): warning C4244: '=' : conversion from 'int' to 'float', possible loss of data
+program.c(517): warning C4244: '=' : conversion from 'int' to 'float', possible loss of data
+program.c(518): warning C4244: '=' : conversion from 'int' to 'float', possible loss of data
+program.c(519): warning C4244: '=' : conversion from 'int' to 'float', possible loss of data
+program.c(667): warning C4244: 'initializing' : conversion from 'LONG' to 'float', possible loss of data
+program.c(668): warning C4244: 'initializing' : conversion from 'LONG' to 'float', possible loss of data
+program.c(670): warning C4244: 'function' : conversion from 'float' to 'int', possible loss of data
+program.c(670): warning C4244: 'initializing' : conversion from 'int' to 'float', possible loss of data
+program.c(671): warning C4244: 'function' : conversion from 'float' to 'int', possible loss of data
+program.c(671): warning C4244: 'initializing' : conversion from 'int' to 'float', possible loss of data
+program.c(673): warning C4244: 'initializing' : conversion from 'double' to 'float', possible loss of data
+program.c(674): warning C4244: 'initializing' : conversion from 'double' to 'float', possible loss of data
+program.c(675): warning C4244: 'initializing' : conversion from 'double' to 'float', possible loss of data
+program.c(704): warning C4244: 'initializing' : conversion from 'int' to 'float', possible loss of data
+program.c(705): warning C4244: 'initializing' : conversion from 'int' to 'float', possible loss of data
+program.c(707): warning C4244: 'initializing' : conversion from 'double' to 'float', possible loss of data
+program.c(708): warning C4244: 'initializing' : conversion from 'double' to 'float', possible loss of data
+program.c(709): warning C4244: 'initializing' : conversion from 'double' to 'float', possible loss of data
+program.c(713): warning C4244: '=' : conversion from 'int' to 'float', possible loss of data
+program.c(714): warning C4244: '=' : conversion from 'int' to 'float', possible loss of data
+program.c(715): warning C4244: '=' : conversion from 'int' to 'float', possible loss of data
+program.c(716): warning C4244: '=' : conversion from 'int' to 'float', possible loss of data
+program.c(717): warning C4244: '=' : conversion from 'int' to 'float', possible loss of data
+program.c(718): warning C4244: '=' : conversion from 'int' to 'float', possible loss of data
+program.c(915): warning C4033: 'MainWndProc' must return a value
   Generating code
-c:\dev\git\missile_command\src\program.c(930): warning C4715: 'MainWndProc': not all control paths return a value
-  All 92 functions were compiled because no usable IPDB/IOBJ from previous compilation was found.
+c:\dev\git\missile_command-master\src\program.c(951): warning C4715: 'MainWndProc' : not all control paths return a value
   Finished generating code
-  MC.vcxproj -> C:\dev\git\missile_command\src\Release\MC.exe
-  MC.vcxproj -> C:\dev\git\missile_command\src\Release\MC.pdb (Full PDB)
+  MC.vcxproj -> C:\dev\git\missile_command-master\src\Release\MC.exe

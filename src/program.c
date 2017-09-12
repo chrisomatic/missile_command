@@ -26,6 +26,7 @@ dibinfo_t bmi = { 0 };
 
 BOOL is_gameover;
 BOOL is_running;
+BOOL is_paused;
 POINT curr_pt = {0};
 
 int buffer_width;
@@ -207,7 +208,7 @@ int WINAPI WinMain(HINSTANCE hinstance, HINSTANCE hprevinstance, LPSTR lpcmdline
 
 		if (accum_time >= target_spf)
 		{
-			accum_time -= target_spf;
+			accum_time = 0;
 
             // Clear buffer to bg_color 
             memset(back_buffer,COLOR_BLACK, buffer_width*buffer_height*BYTES_PER_PIXEL);
@@ -232,6 +233,10 @@ int WINAPI WinMain(HINSTANCE hinstance, HINSTANCE hprevinstance, LPSTR lpcmdline
 
 static void update_scene()
 {
+
+    if (is_paused)
+        return;
+
     if (show_wave_text)
     {
         show_wave_text_countdown--;
@@ -324,8 +329,10 @@ static void update_scene()
         {
 			float d1 = get_distance(enemy_missiles[j].location_x, enemy_missiles[j].location_y, explosions[i].location_x, explosions[i].location_y);
 			float d2 = get_distance(enemy_missiles[j].location_x + GLYPH_WIDTH , enemy_missiles[j].location_y + GLYPH_HEIGHT, explosions[i].location_x, explosions[i].location_y);
+			float d3 = get_distance(enemy_missiles[j].location_x + GLYPH_WIDTH, enemy_missiles[j].location_y, explosions[i].location_x, explosions[i].location_y);
+			float d4 = get_distance(enemy_missiles[j].location_x, enemy_missiles[j].location_y+GLYPH_HEIGHT, explosions[i].location_x, explosions[i].location_y);
 
-            if (d1 <= explosions[i].radius || d2 <= explosions[i].radius)
+            if (d1 <= explosions[i].radius || d2 <= explosions[i].radius || d3 <= explosions[i].radius || d4 <= explosions[i].radius)
                 missiles_to_remove[missiles_to_remove_count++] = j;
         }
 
@@ -343,8 +350,10 @@ static void update_scene()
         {
             float d1 = get_distance(powerup.location_x,powerup.location_y,explosions[i].location_x, explosions[i].location_y);
             float d2 = get_distance(powerup.location_x+GLYPH_WIDTH,powerup.location_y+GLYPH_HEIGHT,explosions[i].location_x, explosions[i].location_y);
+            float d3 = get_distance(powerup.location_x+GLYPH_WIDTH,powerup.location_y,explosions[i].location_x, explosions[i].location_y);
+            float d4 = get_distance(powerup.location_x,powerup.location_y+GLYPH_HEIGHT,explosions[i].location_x, explosions[i].location_y);
 
-            if(d1 <= explosions[i].radius || d2 <= explosions[i].radius)
+            if(d1 <= explosions[i].radius || d2 <= explosions[i].radius || d3 <= explosions[i].radius || d4 <= explosions[i].radius)
             {
                 // player gets the powerup
                 draw_powerup = FALSE;
@@ -384,6 +393,13 @@ static void update_scene()
 
 static void draw_scene()
 {
+
+    if (is_paused)
+    {
+		draw_string("PAUSED", (buffer_width - 66) / 2, (buffer_height - 12) / 2, COLOR_WHITE);
+        return;
+    }
+
     // draw houses
     for (int i = 0; i < NUM_HOUSES; ++i)
     {
@@ -470,7 +486,8 @@ static void draw_scene()
 	free(current_wave_str);
 
 	//draw_string("Z,X,C to shoot", 2, 34, COLOR_WHITE);
-	draw_string("R to restart", 2, 34, COLOR_WHITE);
+	draw_string("P to pause",   2, 34, COLOR_WHITE);
+	draw_string("R to restart", 2, 50, COLOR_WHITE);
 
     draw_string("MISSILES:", buffer_width - 146, 2, COLOR_WHITE);
 	char* available_missiles_str = to_string(AVAILABLE_MISSILES);
@@ -480,13 +497,13 @@ static void draw_scene()
     // draw new wave text
     if (show_wave_text)
     {
-        draw_string("WAVE ",(buffer_width - 99) / 2, (buffer_height - 12) / 2, COLOR_WHITE);
-		draw_string(to_string(current_wave + 1), (buffer_width - 99) / 2 + 55, (buffer_height - 12) / 2, COLOR_WHITE);
+        draw_string("WAVE ",(buffer_width - 66) / 2, (buffer_height - 12) / 2, COLOR_WHITE);
+		draw_string(to_string(current_wave + 1), (buffer_width - 66) / 2 + 55, (buffer_height - 12) / 2, COLOR_WHITE);
     }
     
 	if (is_gameover)
 		draw_string("GAME OVER", (buffer_width - 99) / 2, (buffer_height - 12) / 2, COLOR_WHITE);
-
+    
 	// draw cursor
 	int CURSOR_RADIUS = 5;
 	draw_line2(curr_pt.x - CURSOR_RADIUS, curr_pt.y, curr_pt.x + CURSOR_RADIUS, curr_pt.y, COLOR_GREEN);
@@ -890,6 +907,10 @@ static LRESULT CALLBACK MainWndProc(HWND hwnd, UINT umsg, WPARAM wparam, LPARAM 
 			{
                 begin_new_game();
 			}
+            else if(wparam == 'P')
+            {
+                is_paused = !is_paused;
+            }
 
 			if (is_gameover) return;
 

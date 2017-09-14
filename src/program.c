@@ -166,9 +166,11 @@ static void init_waves();
 static void begin_new_game();
 static void remove_house(int i);
 static void apply_powerups();
+static BOOL set_working_directory();
 
 int WINAPI WinMain(HINSTANCE hinstance, HINSTANCE hprevinstance, LPSTR lpcmdline, s32 nshowcmd)
 {
+	set_working_directory();
 	setup_window(hinstance);
     init_font("font12.png");
 
@@ -517,6 +519,24 @@ static void init_missiles()
 	MISSILE_BASE_B_SRC_X =   buffer_width / 2;
 	MISSILE_BASE_C_SRC_X = 7*buffer_width / 8;
 	MISSILE_BASE_SRC_Y   =   buffer_height - 1;
+}
+
+static BOOL set_working_directory()
+{
+	char cwd[256] = { 0 };
+    char curr_path[256] = {0};
+    GetModuleFileName(NULL, curr_path, 256);
+
+	for (int i = 255; curr_path[i] != '\\' && i > 0; --i)
+		curr_path[i] = 0;
+
+    if(!curr_path)
+        return FALSE;
+
+    if(!SetCurrentDirectory(curr_path))
+		return FALSE;
+
+	return TRUE;
 }
 
 static void begin_new_game()

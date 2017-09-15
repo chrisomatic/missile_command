@@ -24,59 +24,58 @@ c:\dev\git\missile_command\src\cdraw.h(303): warning C4020: 'draw_line' : too ma
 c:\dev\git\missile_command\src\cdraw.h(304): warning C4020: 'draw_line' : too many actual parameters
 c:\dev\git\missile_command\src\cutil.h(69): warning C4244: 'return' : conversion from 'double' to 'float', possible loss of data
 c:\dev\git\missile_command\src\cfontsimple.h(67): warning C4133: '<' : incompatible types - from 'void *' to 'unsigned char *'
-program.c(179): warning C4244: 'function' : conversion from 'time_t' to 'unsigned int', possible loss of data
-program.c(259): warning C4244: 'function' : conversion from 'int' to 'float', possible loss of data
-program.c(283): warning C4244: 'function' : conversion from 'int' to 'float', possible loss of data
-program.c(297): warning C4244: '+=' : conversion from 'double' to 'float', possible loss of data
-program.c(298): warning C4244: '+=' : conversion from 'double' to 'float', possible loss of data
-program.c(307): warning C4244: '=' : conversion from 'int' to 'float', possible loss of data
-program.c(308): warning C4244: '=' : conversion from 'int' to 'float', possible loss of data
-program.c(367): warning C4244: 'initializing' : conversion from 'int' to 'float', possible loss of data
-program.c(372): warning C4244: 'function' : conversion from 'int' to 'float', possible loss of data
-program.c(412): warning C4244: 'function' : conversion from 'float' to 'int', possible loss of data
-program.c(413): warning C4244: 'function' : conversion from 'float' to 'int', possible loss of data
-program.c(414): warning C4244: 'function' : conversion from 'float' to 'int', possible loss of data
-program.c(416): warning C4244: 'function' : conversion from 'float' to 'int', possible loss of data
-program.c(417): warning C4244: 'function' : conversion from 'float' to 'int', possible loss of data
-program.c(418): warning C4244: 'function' : conversion from 'float' to 'int', possible loss of data
+program.c(185): warning C4244: 'function' : conversion from 'time_t' to 'unsigned int', possible loss of data
+program.c(269): warning C4244: 'function' : conversion from 'int' to 'float', possible loss of data
+program.c(293): warning C4244: 'function' : conversion from 'int' to 'float', possible loss of data
+program.c(306): warning C4244: '+=' : conversion from 'double' to 'float', possible loss of data
+program.c(307): warning C4244: '+=' : conversion from 'double' to 'float', possible loss of data
+program.c(316): warning C4244: '=' : conversion from 'int' to 'float', possible loss of data
+program.c(317): warning C4244: '=' : conversion from 'int' to 'float', possible loss of data
+program.c(376): warning C4244: 'initializing' : conversion from 'int' to 'float', possible loss of data
+program.c(381): warning C4244: 'function' : conversion from 'int' to 'float', possible loss of data
+program.c(421): warning C4244: 'function' : conversion from 'float' to 'int', possible loss of data
+program.c(422): warning C4244: 'function' : conversion from 'float' to 'int', possible loss of data
 program.c(423): warning C4244: 'function' : conversion from 'float' to 'int', possible loss of data
+program.c(425): warning C4244: 'function' : conversion from 'float' to 'int', possible loss of data
 program.c(426): warning C4244: 'function' : conversion from 'float' to 'int', possible loss of data
 program.c(427): warning C4244: 'function' : conversion from 'float' to 'int', possible loss of data
-program.c(428): warning C4244: 'function' : conversion from 'float' to 'int', possible loss of data
-program.c(429): warning C4244: 'function' : conversion from 'float' to 'int', possible loss of data
-program.c(430): warning C4244: 'function' : conversion from 'float' to 'int', possible loss of data
 program.c(432): warning C4244: 'function' : conversion from 'float' to 'int', possible loss of data
+program.c(435): warning C4244: 'function' : conversion from 'float' to 'int', possible loss of data
+program.c(436): warning C4244: 'function' : conversion from 'float' to 'int', possible loss of data
 program.c(437): warning C4244: 'function' : conversion from 'float' to 'int', possible loss of data
 program.c(438): warning C4244: 'function' : conversion from 'float' to 'int', possible loss of data
-program.c(444): warning C4244: 'function' : conversion from 'float' to 'int', possible loss of data
-program.c(475): warning C4244: 'initializing' : conversion from 'float' to 'int', possible loss of data
-program.c(476): warning C4244: 'function' : conversion from 'float' to 'int', possible loss of data
-program.c(518): warning C4244: '=' : conversion from 'int' to 'float', possible loss of data
-program.c(519): warning C4244: '=' : conversion from 'int' to 'float', possible loss of data
-program.c(520): warning C4244: '=' : conversion from 'int' to 'float', possible loss of data
-program.c(521): warning C4244: '=' : conversion from 'int' to 'float', possible loss of data
-program.c(687): warning C4244: 'initializing' : conversion from 'LONG' to 'float', possible loss of data
-program.c(688): warning C4244: 'initializing' : conversion from 'LONG' to 'float', possible loss of data
-program.c(690): warning C4244: 'function' : conversion from 'float' to 'int', possible loss of data
-program.c(690): warning C4244: 'initializing' : conversion from 'int' to 'float', possible loss of data
-program.c(691): warning C4244: 'function' : conversion from 'float' to 'int', possible loss of data
-program.c(691): warning C4244: 'initializing' : conversion from 'int' to 'float', possible loss of data
-program.c(693): warning C4244: 'initializing' : conversion from 'double' to 'float', possible loss of data
-program.c(694): warning C4244: 'initializing' : conversion from 'double' to 'float', possible loss of data
-program.c(695): warning C4244: 'initializing' : conversion from 'double' to 'float', possible loss of data
-program.c(724): warning C4244: 'initializing' : conversion from 'int' to 'float', possible loss of data
-program.c(725): warning C4244: 'initializing' : conversion from 'int' to 'float', possible loss of data
-program.c(727): warning C4244: 'initializing' : conversion from 'double' to 'float', possible loss of data
-program.c(728): warning C4244: 'initializing' : conversion from 'double' to 'float', possible loss of data
-program.c(729): warning C4244: 'initializing' : conversion from 'double' to 'float', possible loss of data
-program.c(733): warning C4244: '=' : conversion from 'int' to 'float', possible loss of data
-program.c(734): warning C4244: '=' : conversion from 'int' to 'float', possible loss of data
-program.c(735): warning C4244: '=' : conversion from 'int' to 'float', possible loss of data
-program.c(736): warning C4244: '=' : conversion from 'int' to 'float', possible loss of data
-program.c(737): warning C4244: '=' : conversion from 'int' to 'float', possible loss of data
-program.c(738): warning C4244: '=' : conversion from 'int' to 'float', possible loss of data
-program.c(935): warning C4033: 'MainWndProc' must return a value
+program.c(439): warning C4244: 'function' : conversion from 'float' to 'int', possible loss of data
+program.c(441): warning C4244: 'function' : conversion from 'float' to 'int', possible loss of data
+program.c(446): warning C4244: 'function' : conversion from 'float' to 'int', possible loss of data
+program.c(447): warning C4244: 'function' : conversion from 'float' to 'int', possible loss of data
+program.c(453): warning C4244: 'function' : conversion from 'float' to 'int', possible loss of data
+program.c(484): warning C4244: 'function' : conversion from 'float' to 'int', possible loss of data
+program.c(527): warning C4244: '=' : conversion from 'int' to 'float', possible loss of data
+program.c(528): warning C4244: '=' : conversion from 'int' to 'float', possible loss of data
+program.c(529): warning C4244: '=' : conversion from 'int' to 'float', possible loss of data
+program.c(530): warning C4244: '=' : conversion from 'int' to 'float', possible loss of data
+program.c(755): warning C4244: 'initializing' : conversion from 'LONG' to 'float', possible loss of data
+program.c(756): warning C4244: 'initializing' : conversion from 'LONG' to 'float', possible loss of data
+program.c(758): warning C4244: 'function' : conversion from 'float' to 'int', possible loss of data
+program.c(758): warning C4244: 'initializing' : conversion from 'int' to 'float', possible loss of data
+program.c(759): warning C4244: 'function' : conversion from 'float' to 'int', possible loss of data
+program.c(759): warning C4244: 'initializing' : conversion from 'int' to 'float', possible loss of data
+program.c(761): warning C4244: 'initializing' : conversion from 'double' to 'float', possible loss of data
+program.c(762): warning C4244: 'initializing' : conversion from 'double' to 'float', possible loss of data
+program.c(763): warning C4244: 'initializing' : conversion from 'double' to 'float', possible loss of data
+program.c(792): warning C4244: 'initializing' : conversion from 'int' to 'float', possible loss of data
+program.c(793): warning C4244: 'initializing' : conversion from 'int' to 'float', possible loss of data
+program.c(795): warning C4244: 'initializing' : conversion from 'double' to 'float', possible loss of data
+program.c(796): warning C4244: 'initializing' : conversion from 'double' to 'float', possible loss of data
+program.c(797): warning C4244: 'initializing' : conversion from 'double' to 'float', possible loss of data
+program.c(801): warning C4244: '=' : conversion from 'int' to 'float', possible loss of data
+program.c(802): warning C4244: '=' : conversion from 'int' to 'float', possible loss of data
+program.c(803): warning C4244: '=' : conversion from 'int' to 'float', possible loss of data
+program.c(804): warning C4244: '=' : conversion from 'int' to 'float', possible loss of data
+program.c(805): warning C4244: '=' : conversion from 'int' to 'float', possible loss of data
+program.c(806): warning C4244: '=' : conversion from 'int' to 'float', possible loss of data
+program.c(1007): warning C4033: 'MainWndProc' must return a value
   Generating code
-c:\dev\git\missile_command\src\program.c(971): warning C4715: 'MainWndProc' : not all control paths return a value
+c:\dev\git\missile_command\src\program.c(1043): warning C4715: 'MainWndProc' : not all control paths return a value
   Finished generating code
   MC.vcxproj -> C:\dev\git\missile_command\src\Release\MC.exe

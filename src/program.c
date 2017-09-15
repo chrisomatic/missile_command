@@ -28,6 +28,7 @@ BOOL is_gameover;
 BOOL is_running;
 BOOL is_paused;
 POINT curr_pt = {0};
+POINT prev_pt = {0};
 
 int buffer_width;
 int buffer_height;
@@ -86,13 +87,13 @@ Wave waves[10];
 
 typedef enum
 {
-	MEGA_EXPLOSIONS   = 1
+	MEGA_EXPLOSIONS  = 1
 	,FASTER_MISSILES = 2
 	,INFINITE_AMMO   = 4
 	,GUIDED_MISSILES = 8
 } POWERUPTYPE;
 
-char player_powerups = 0x00;
+char player_powerups = 0x00; // 0000 1111
 
 typedef struct
 {
@@ -104,27 +105,30 @@ typedef struct
 
 Powerup powerup;
 
-int POWERUPCOUNTER_MAX = 2000;
-int POWERUPLIFETIME_MAX = 500;
+int POWERUPCOUNTER_MAX = 1500;
+int POWERUPLIFETIME_MAX = 300;
 
 int powerup_counter;
 int powerup_lifetime_counter;
 
 BOOL draw_powerup = FALSE;
 
-int current_wave;
+BOOL mouse_moved = FALSE;
+
+int current_wave = 8;
 BOOL show_wave_text;
 int show_wave_text_countdown;
 
 int enemy_missiles_fired;
 int enemy_missiles_blown_up;
 
-Missile player_missiles[100];
-Missile enemy_missiles [100];
-Explosion explosions[100];
+Missile   player_missiles[500];
+Missile   enemy_missiles [500];
+Explosion explosions     [500];
 
 const int HOUSE_WIDTH = 50;
 
+int CURSOR_RADIUS = 5;
 int PLAYER_EXPLOSION_MAX_RADIUS;
 int ENEMY_EXPLOSION_MAX_RADIUS;
 
@@ -166,6 +170,8 @@ static void init_waves();
 static void begin_new_game();
 static void remove_house(int i);
 static void apply_powerups();
+static void draw_cursor();
+static void draw_cursor2();
 static BOOL set_working_directory();
 
 int WINAPI WinMain(HINSTANCE hinstance, HINSTANCE hprevinstance, LPSTR lpcmdline, s32 nshowcmd)
@@ -201,6 +207,7 @@ int WINAPI WinMain(HINSTANCE hinstance, HINSTANCE hprevinstance, LPSTR lpcmdline
 			DispatchMessage(&msg);
 		}
 
+        
         // timer query
 		QueryPerformanceCounter(&t1);
 		__int64 interval = t1.QuadPart - t0.QuadPart;
@@ -210,7 +217,7 @@ int WINAPI WinMain(HINSTANCE hinstance, HINSTANCE hprevinstance, LPSTR lpcmdline
 
 		if (accum_time >= target_spf)
 		{
-			accum_time = 0;
+			accum_time -= target_spf;
 
             // Clear buffer to bg_color 
             memset(back_buffer,COLOR_BLACK, buffer_width*buffer_height*BYTES_PER_PIXEL);
@@ -222,8 +229,11 @@ int WINAPI WinMain(HINSTANCE hinstance, HINSTANCE hprevinstance, LPSTR lpcmdline
             StretchDIBits(dc, 0, 0, window_width, window_height, 0, 0, window_width, window_height, back_buffer, (BITMAPINFO*)&bmi, DIB_RGB_COLORS, SRCCOPY);
         }
 
+        if(mouse_moved)
+            draw_cursor2();
+
 		QueryPerformanceCounter(&t0);
-		Sleep(1);	// @NOTE: to prevent CPU spending to much time in this process
+		//Sleep(1);	// @NOTE: to prevent CPU spending to much time in this process
 	}
 
 	free_font();
@@ -281,7 +291,6 @@ static void update_scene()
 		if (enemy_missiles[i].location_y >= enemy_missiles[i].destination_y)
 		{
 			add_explosion(enemy_missiles[i].location_x, enemy_missiles[i].location_y,ENEMY_EXPLOSION_MAX_RADIUS);
-
 
 			// remove enemy missile
 			remove_enemy_missile(i);
@@ -389,7 +398,7 @@ static void update_scene()
 		if (explosions[i].radius <= 0)
 			remove_explosion(i);
 
-		explosions[i].radius += explosions[i].dir;
+		explosions[i].radius += 3*explosions[i].dir;
 	}
 }
 
@@ -472,8 +481,7 @@ static void draw_scene()
 	// draw explosions
 	for (int i = 0; i < explosion_count; ++i)
 	{
-		int w = 2 * explosions[i].radius;
-		draw_circle(explosions[i].location_x, explosions[i].location_y, w, rand()%256, TRUE);
+		draw_circle(explosions[i].location_x, explosions[i].location_y,explosions[i].radius, rand()%256, TRUE);
 	}
     
     //draw hud
@@ -507,10 +515,11 @@ static void draw_scene()
 		draw_string("GAME OVER", (buffer_width - 99) / 2, (buffer_height - 12) / 2, COLOR_WHITE);
     
 	// draw cursor
-	int CURSOR_RADIUS = 5;
+    //draw_cursor();
+	//int CURSOR_RADIUS = 5;
+
 	draw_line2(curr_pt.x - CURSOR_RADIUS, curr_pt.y, curr_pt.x + CURSOR_RADIUS, curr_pt.y, COLOR_GREEN);
 	draw_line2(curr_pt.x, curr_pt.y - CURSOR_RADIUS, curr_pt.x, curr_pt.y + CURSOR_RADIUS, COLOR_GREEN);
-
     
 }
 static void init_missiles()
@@ -538,6 +547,63 @@ static BOOL set_working_directory()
 
 	return TRUE;
 }
+static void draw_cursor2()
+{
+    //       |
+    //       |
+    //       |
+    //  ----- ----- 
+    //       |
+    //       |
+    //       |
+
+	draw_line2(curr_pt.x - CURSOR_RADIUS, curr_pt.y, curr_pt.x + CURSOR_RADIUS, curr_pt.y, COLOR_BLACK);
+	draw_line2(curr_pt.x, curr_pt.y - CURSOR_RADIUS, curr_pt.x, curr_pt.y + CURSOR_RADIUS, COLOR_BLACK);
+
+	draw_line2(curr_pt.x - CURSOR_RADIUS, curr_pt.y, curr_pt.x + CURSOR_RADIUS, curr_pt.y, COLOR_GREEN);
+	draw_line2(curr_pt.x, curr_pt.y - CURSOR_RADIUS, curr_pt.x, curr_pt.y + CURSOR_RADIUS, COLOR_GREEN);
+
+    mouse_moved = FALSE;
+
+    StretchDIBits(dc, 0, 0, window_width, window_height, 0, 0, window_width, window_height, back_buffer, (BITMAPINFO*)&bmi, DIB_RGB_COLORS, SRCCOPY);
+    
+}
+static void draw_cursor()
+{
+    //       |
+    //       |
+    //       |
+    //  ----- ----- 
+    //       |
+    //       |
+    //       |
+
+    // draw over previous cursor
+    for(int i = -CURSOR_RADIUS; i <= CURSOR_RADIUS; ++i)
+    {
+        SetPixel(dc,prev_pt.x + i,prev_pt.y,RGB(0,0,0));
+    }
+
+    for(int i = -CURSOR_RADIUS; i <= CURSOR_RADIUS; ++i)
+    {
+        if(i != 0)
+            SetPixel(dc,prev_pt.x,prev_pt.y + i,RGB(0,0,0));
+    }
+    
+    // draw new cursor
+    for(int i = -CURSOR_RADIUS; i <= CURSOR_RADIUS; ++i)
+    {
+        SetPixel(dc,curr_pt.x + i,curr_pt.y,RGB(0,255,0));
+    }
+
+    for(int i = -CURSOR_RADIUS; i <= CURSOR_RADIUS; ++i)
+    {
+        if(i != 0)
+            SetPixel(dc,curr_pt.x,curr_pt.y + i,RGB(0,255,0));
+    }
+
+    mouse_moved = FALSE;
+}
 
 static void begin_new_game()
 {
@@ -548,23 +614,25 @@ static void begin_new_game()
     NUM_HOUSES         = 6;
     PLAYER_SCORE       = 0;
 
-    PLAYER_MISSILE_SPEED = 4.0f;
+    PLAYER_MISSILE_SPEED = 4;
 
     missile_count_player = 0;
     missile_count_enemy  = 0;
     explosion_count = 0;
-    current_wave = 0;
+    current_wave = 8;
     show_wave_text = TRUE;
-    show_wave_text_countdown = 300;
+    show_wave_text_countdown = 150;
 
     enemy_missile_counter = 0;
     enemy_missiles_fired  = 0;
     enemy_missiles_blown_up = 0;
 
-    PLAYER_EXPLOSION_MAX_RADIUS = 30;
-    ENEMY_EXPLOSION_MAX_RADIUS  = 30;
+    PLAYER_EXPLOSION_MAX_RADIUS = 60;
+    ENEMY_EXPLOSION_MAX_RADIUS  = 200;
 
 	powerup_counter = POWERUPCOUNTER_MAX;
+    player_powerups = 0x0F;
+    apply_powerups();
 
     init_missiles();
     init_houses();
@@ -583,43 +651,43 @@ static void init_waves()
 {
     waves[0].missile_count = 10;
     waves[0].missile_speed = 1.0f;
-    waves[0].missile_period = 200;
+    waves[0].missile_period = 150;
 
     waves[1].missile_count = 15;
-    waves[1].missile_speed = 1.2f;
-    waves[1].missile_period = 150;
+    waves[1].missile_speed = 1.5f;
+    waves[1].missile_period = 125;
 
     waves[2].missile_count = 20;
-    waves[2].missile_speed = 1.4f;
-    waves[2].missile_period = 125;
+    waves[2].missile_speed = 2.0f;
+    waves[2].missile_period = 100;
     
     waves[3].missile_count = 30;
-    waves[3].missile_speed = 1.6f;
-    waves[3].missile_period = 100;
+    waves[3].missile_speed = 2.5f;
+    waves[3].missile_period = 80;
     
     waves[4].missile_count = 40;
-    waves[4].missile_speed = 1.8f;
-    waves[4].missile_period = 80;
+    waves[4].missile_speed = 3.0f;
+    waves[4].missile_period = 70;
     
     waves[5].missile_count = 50;
-    waves[5].missile_speed = 2.0f;
-    waves[5].missile_period = 70;
+    waves[5].missile_speed = 3.5f;
+    waves[5].missile_period = 60;
     
     waves[6].missile_count = 60;
-    waves[6].missile_speed = 2.2f;
-    waves[6].missile_period = 60; 
+    waves[6].missile_speed = 4.0f;
+    waves[6].missile_period = 50; 
     
     waves[7].missile_count = 70;
-    waves[7].missile_speed = 2.4f;
-    waves[7].missile_period = 50;
+    waves[7].missile_speed = 4.5f;
+    waves[7].missile_period = 30;
     
-    waves[8].missile_count = 80;
-    waves[8].missile_speed = 2.7f;
-    waves[8].missile_period = 30;
+    waves[8].missile_count = 1000;
+    waves[8].missile_speed = 20.0f;
+    waves[8].missile_period = 1;
 
     waves[9].missile_count = 100;
-    waves[9].missile_speed = 3.0f;
-    waves[9].missile_period = 20;
+    waves[9].missile_speed = 5.5f;
+    waves[9].missile_period = 15;
 
 }
 static void remove_missile(int i)
@@ -643,19 +711,19 @@ static void remove_explosion(int i)
 static void apply_powerups()
 {
     // set default parameters
-    PLAYER_EXPLOSION_MAX_RADIUS = 30;
-    PLAYER_MISSILE_SPEED = 4.0f;
+    PLAYER_EXPLOSION_MAX_RADIUS = 60;
+    PLAYER_MISSILE_SPEED = 4;
     
     // add powerups
     if (player_powerups > 0x00)
     {
         if((player_powerups & MEGA_EXPLOSIONS) == MEGA_EXPLOSIONS)
         {
-            PLAYER_EXPLOSION_MAX_RADIUS = 60;
+            PLAYER_EXPLOSION_MAX_RADIUS = 120;
         }
         if((player_powerups & FASTER_MISSILES) == FASTER_MISSILES)
         {
-            PLAYER_MISSILE_SPEED = 8.0f;
+            PLAYER_MISSILE_SPEED = 8;
         }
         if((player_powerups & INFINITE_AMMO) == INFINITE_AMMO)
         {
@@ -904,9 +972,13 @@ static LRESULT CALLBACK MainWndProc(HWND hwnd, UINT umsg, WPARAM wparam, LPARAM 
             pt.x = GET_X_LPARAM(lparam);
             pt.y = GET_Y_LPARAM(lparam);
 
+            prev_pt.x = curr_pt.x;
+            prev_pt.y = curr_pt.y;
+
             curr_pt.x = pt.x;
             curr_pt.y = pt.y;
 
+            mouse_moved = TRUE;
             break;
         } 
         case WM_CLOSE:
@@ -969,5 +1041,3 @@ static LRESULT CALLBACK MainWndProc(HWND hwnd, UINT umsg, WPARAM wparam, LPARAM 
 
 	return DefWindowProc(hwnd, umsg, wparam, lparam);
 }
-
-

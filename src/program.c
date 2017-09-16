@@ -170,8 +170,6 @@ static void init_waves();
 static void begin_new_game();
 static void remove_house(int i);
 static void apply_powerups();
-static void draw_cursor();
-static void draw_cursor2();
 static BOOL set_working_directory();
 
 int WINAPI WinMain(HINSTANCE hinstance, HINSTANCE hprevinstance, LPSTR lpcmdline, s32 nshowcmd)
@@ -228,9 +226,6 @@ int WINAPI WinMain(HINSTANCE hinstance, HINSTANCE hprevinstance, LPSTR lpcmdline
             // Blit to screen
             StretchDIBits(dc, 0, 0, window_width, window_height, 0, 0, window_width, window_height, back_buffer, (BITMAPINFO*)&bmi, DIB_RGB_COLORS, SRCCOPY);
         }
-
-        if(mouse_moved)
-            draw_cursor2();
 
 		QueryPerformanceCounter(&t0);
 		//Sleep(1);	// @NOTE: to prevent CPU spending to much time in this process
@@ -515,9 +510,6 @@ static void draw_scene()
 		draw_string("GAME OVER", (buffer_width - 99) / 2, (buffer_height - 12) / 2, COLOR_WHITE);
     
 	// draw cursor
-    //draw_cursor();
-	//int CURSOR_RADIUS = 5;
-
 	draw_line2(curr_pt.x - CURSOR_RADIUS, curr_pt.y, curr_pt.x + CURSOR_RADIUS, curr_pt.y, COLOR_GREEN);
 	draw_line2(curr_pt.x, curr_pt.y - CURSOR_RADIUS, curr_pt.x, curr_pt.y + CURSOR_RADIUS, COLOR_GREEN);
     
@@ -547,63 +539,6 @@ static BOOL set_working_directory()
 
 	return TRUE;
 }
-static void draw_cursor2()
-{
-    //       |
-    //       |
-    //       |
-    //  ----- ----- 
-    //       |
-    //       |
-    //       |
-
-	draw_line2(curr_pt.x - CURSOR_RADIUS, curr_pt.y, curr_pt.x + CURSOR_RADIUS, curr_pt.y, COLOR_BLACK);
-	draw_line2(curr_pt.x, curr_pt.y - CURSOR_RADIUS, curr_pt.x, curr_pt.y + CURSOR_RADIUS, COLOR_BLACK);
-
-	draw_line2(curr_pt.x - CURSOR_RADIUS, curr_pt.y, curr_pt.x + CURSOR_RADIUS, curr_pt.y, COLOR_GREEN);
-	draw_line2(curr_pt.x, curr_pt.y - CURSOR_RADIUS, curr_pt.x, curr_pt.y + CURSOR_RADIUS, COLOR_GREEN);
-
-    mouse_moved = FALSE;
-
-    StretchDIBits(dc, 0, 0, window_width, window_height, 0, 0, window_width, window_height, back_buffer, (BITMAPINFO*)&bmi, DIB_RGB_COLORS, SRCCOPY);
-    
-}
-static void draw_cursor()
-{
-    //       |
-    //       |
-    //       |
-    //  ----- ----- 
-    //       |
-    //       |
-    //       |
-
-    // draw over previous cursor
-    for(int i = -CURSOR_RADIUS; i <= CURSOR_RADIUS; ++i)
-    {
-        SetPixel(dc,prev_pt.x + i,prev_pt.y,RGB(0,0,0));
-    }
-
-    for(int i = -CURSOR_RADIUS; i <= CURSOR_RADIUS; ++i)
-    {
-        if(i != 0)
-            SetPixel(dc,prev_pt.x,prev_pt.y + i,RGB(0,0,0));
-    }
-    
-    // draw new cursor
-    for(int i = -CURSOR_RADIUS; i <= CURSOR_RADIUS; ++i)
-    {
-        SetPixel(dc,curr_pt.x + i,curr_pt.y,RGB(0,255,0));
-    }
-
-    for(int i = -CURSOR_RADIUS; i <= CURSOR_RADIUS; ++i)
-    {
-        if(i != 0)
-            SetPixel(dc,curr_pt.x,curr_pt.y + i,RGB(0,255,0));
-    }
-
-    mouse_moved = FALSE;
-}
 
 static void begin_new_game()
 {
@@ -619,7 +554,7 @@ static void begin_new_game()
     missile_count_player = 0;
     missile_count_enemy  = 0;
     explosion_count = 0;
-    current_wave = 8;
+    current_wave = 0;
     show_wave_text = TRUE;
     show_wave_text_countdown = 150;
 
@@ -628,10 +563,10 @@ static void begin_new_game()
     enemy_missiles_blown_up = 0;
 
     PLAYER_EXPLOSION_MAX_RADIUS = 60;
-    ENEMY_EXPLOSION_MAX_RADIUS  = 200;
+    ENEMY_EXPLOSION_MAX_RADIUS  = 60; 
 
 	powerup_counter = POWERUPCOUNTER_MAX;
-    player_powerups = 0x0F;
+    player_powerups = 0x00;
     apply_powerups();
 
     init_missiles();
@@ -681,9 +616,9 @@ static void init_waves()
     waves[7].missile_speed = 4.5f;
     waves[7].missile_period = 30;
     
-    waves[8].missile_count = 1000;
-    waves[8].missile_speed = 20.0f;
-    waves[8].missile_period = 1;
+    waves[8].missile_count = 85;
+    waves[8].missile_speed = 5.0f;
+    waves[8].missile_period = 22;
 
     waves[9].missile_count = 100;
     waves[9].missile_speed = 5.5f;

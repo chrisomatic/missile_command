@@ -1,0 +1,81 @@
+﻿C:\Program Files (x86)\MSBuild\Microsoft.Cpp\v4.0\V140\Microsoft.CppBuild.targets(392,5): warning MSB8028: The intermediate directory (Debug\) contains files shared from another project (MC.vcxproj).  This can lead to incorrect clean and rebuild behavior.
+  program.c
+c:\dev\git\missile_command\src\cdraw.h(55): warning C4333: '>>': right shift by too large amount, data loss
+c:\dev\git\missile_command\src\cdraw.h(56): warning C4333: '>>': right shift by too large amount, data loss
+c:\dev\git\missile_command\src\cdraw.h(59): warning C4244: 'initializing': conversion from 'double' to 'unsigned char', possible loss of data
+c:\dev\git\missile_command\src\cdraw.h(60): warning C4244: 'initializing': conversion from 'double' to 'unsigned char', possible loss of data
+c:\dev\git\missile_command\src\cdraw.h(61): warning C4244: 'initializing': conversion from 'double' to 'unsigned char', possible loss of data
+c:\dev\git\missile_command\src\cdraw.h(72): warning C4133: '<': incompatible types - from 'void *' to 'int *'
+c:\dev\git\missile_command\src\cdraw.h(88): warning C4244: 'initializing': conversion from 'double' to 'unsigned char', possible loss of data
+c:\dev\git\missile_command\src\cdraw.h(89): warning C4244: 'initializing': conversion from 'double' to 'unsigned char', possible loss of data
+c:\dev\git\missile_command\src\cdraw.h(90): warning C4244: 'initializing': conversion from 'double' to 'unsigned char', possible loss of data
+c:\dev\git\missile_command\src\cdraw.h(242): warning C4244: 'function': conversion from 'double' to 'int', possible loss of data
+c:\dev\git\missile_command\src\cdraw.h(243): warning C4244: 'function': conversion from 'double' to 'int', possible loss of data
+c:\dev\git\missile_command\src\cdraw.h(247): warning C4244: 'function': conversion from 'double' to 'int', possible loss of data
+c:\dev\git\missile_command\src\cdraw.h(248): warning C4244: 'function': conversion from 'double' to 'int', possible loss of data
+c:\dev\git\missile_command\src\cdraw.h(261): warning C4244: 'function': conversion from 'double' to 'int', possible loss of data
+c:\dev\git\missile_command\src\cdraw.h(262): warning C4244: 'function': conversion from 'double' to 'int', possible loss of data
+c:\dev\git\missile_command\src\cdraw.h(266): warning C4244: 'function': conversion from 'double' to 'int', possible loss of data
+c:\dev\git\missile_command\src\cdraw.h(267): warning C4244: 'function': conversion from 'double' to 'int', possible loss of data
+c:\dev\git\missile_command\src\cdraw.h(273): warning C4244: 'initializing': conversion from 'double' to 'int', possible loss of data
+c:\dev\git\missile_command\src\cdraw.h(282): warning C4244: 'initializing': conversion from 'double' to 'int', possible loss of data
+c:\dev\git\missile_command\src\cdraw.h(301): warning C4020: 'draw_line': too many actual parameters
+c:\dev\git\missile_command\src\cdraw.h(302): warning C4020: 'draw_line': too many actual parameters
+c:\dev\git\missile_command\src\cdraw.h(303): warning C4020: 'draw_line': too many actual parameters
+c:\dev\git\missile_command\src\cdraw.h(304): warning C4020: 'draw_line': too many actual parameters
+c:\dev\git\missile_command\src\cutil.h(69): warning C4244: 'return': conversion from 'double' to 'float', possible loss of data
+c:\dev\git\missile_command\src\cfontsimple.h(67): warning C4133: '<': incompatible types - from 'void *' to 'unsigned char *'
+c:\dev\git\missile_command\src\program.c(185): warning C4244: 'function': conversion from 'time_t' to 'unsigned int', possible loss of data
+c:\dev\git\missile_command\src\program.c(269): warning C4244: 'function': conversion from 'int' to 'float', possible loss of data
+c:\dev\git\missile_command\src\program.c(293): warning C4244: 'function': conversion from 'int' to 'float', possible loss of data
+c:\dev\git\missile_command\src\program.c(306): warning C4244: '+=': conversion from 'double' to 'float', possible loss of data
+c:\dev\git\missile_command\src\program.c(307): warning C4244: '+=': conversion from 'double' to 'float', possible loss of data
+c:\dev\git\missile_command\src\program.c(316): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
+c:\dev\git\missile_command\src\program.c(317): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
+c:\dev\git\missile_command\src\program.c(381): warning C4244: 'function': conversion from 'int' to 'float', possible loss of data
+c:\dev\git\missile_command\src\program.c(376): warning C4244: 'initializing': conversion from 'int' to 'float', possible loss of data
+c:\dev\git\missile_command\src\program.c(421): warning C4244: 'function': conversion from 'float' to 'int', possible loss of data
+c:\dev\git\missile_command\src\program.c(422): warning C4244: 'function': conversion from 'float' to 'int', possible loss of data
+c:\dev\git\missile_command\src\program.c(423): warning C4244: 'function': conversion from 'float' to 'int', possible loss of data
+c:\dev\git\missile_command\src\program.c(425): warning C4244: 'function': conversion from 'float' to 'int', possible loss of data
+c:\dev\git\missile_command\src\program.c(426): warning C4244: 'function': conversion from 'float' to 'int', possible loss of data
+c:\dev\git\missile_command\src\program.c(427): warning C4244: 'function': conversion from 'float' to 'int', possible loss of data
+c:\dev\git\missile_command\src\program.c(432): warning C4244: 'function': conversion from 'float' to 'int', possible loss of data
+c:\dev\git\missile_command\src\program.c(435): warning C4244: 'function': conversion from 'float' to 'int', possible loss of data
+c:\dev\git\missile_command\src\program.c(436): warning C4244: 'function': conversion from 'float' to 'int', possible loss of data
+c:\dev\git\missile_command\src\program.c(437): warning C4244: 'function': conversion from 'float' to 'int', possible loss of data
+c:\dev\git\missile_command\src\program.c(438): warning C4244: 'function': conversion from 'float' to 'int', possible loss of data
+c:\dev\git\missile_command\src\program.c(439): warning C4244: 'function': conversion from 'float' to 'int', possible loss of data
+c:\dev\git\missile_command\src\program.c(441): warning C4244: 'function': conversion from 'float' to 'int', possible loss of data
+c:\dev\git\missile_command\src\program.c(446): warning C4244: 'function': conversion from 'float' to 'int', possible loss of data
+c:\dev\git\missile_command\src\program.c(447): warning C4244: 'function': conversion from 'float' to 'int', possible loss of data
+c:\dev\git\missile_command\src\program.c(453): warning C4244: 'function': conversion from 'float' to 'int', possible loss of data
+c:\dev\git\missile_command\src\program.c(484): warning C4244: 'function': conversion from 'float' to 'int', possible loss of data
+c:\dev\git\missile_command\src\program.c(527): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
+c:\dev\git\missile_command\src\program.c(528): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
+c:\dev\git\missile_command\src\program.c(529): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
+c:\dev\git\missile_command\src\program.c(530): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
+c:\dev\git\missile_command\src\program.c(758): warning C4244: 'function': conversion from 'float' to 'int', possible loss of data
+c:\dev\git\missile_command\src\program.c(759): warning C4244: 'function': conversion from 'float' to 'int', possible loss of data
+c:\dev\git\missile_command\src\program.c(755): warning C4244: 'initializing': conversion from 'LONG' to 'float', possible loss of data
+c:\dev\git\missile_command\src\program.c(756): warning C4244: 'initializing': conversion from 'LONG' to 'float', possible loss of data
+c:\dev\git\missile_command\src\program.c(758): warning C4244: 'initializing': conversion from 'int' to 'float', possible loss of data
+c:\dev\git\missile_command\src\program.c(759): warning C4244: 'initializing': conversion from 'int' to 'float', possible loss of data
+c:\dev\git\missile_command\src\program.c(761): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
+c:\dev\git\missile_command\src\program.c(762): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
+c:\dev\git\missile_command\src\program.c(763): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
+c:\dev\git\missile_command\src\program.c(801): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
+c:\dev\git\missile_command\src\program.c(802): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
+c:\dev\git\missile_command\src\program.c(803): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
+c:\dev\git\missile_command\src\program.c(804): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
+c:\dev\git\missile_command\src\program.c(805): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
+c:\dev\git\missile_command\src\program.c(806): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
+c:\dev\git\missile_command\src\program.c(792): warning C4244: 'initializing': conversion from 'int' to 'float', possible loss of data
+c:\dev\git\missile_command\src\program.c(793): warning C4244: 'initializing': conversion from 'int' to 'float', possible loss of data
+c:\dev\git\missile_command\src\program.c(795): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
+c:\dev\git\missile_command\src\program.c(796): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
+c:\dev\git\missile_command\src\program.c(797): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
+c:\dev\git\missile_command\src\program.c(1007): warning C4033: 'MainWndProc' must return a value
+c:\dev\git\missile_command\src\program.c(1043): warning C4715: 'MainWndProc': not all control paths return a value
+  MC_V14.vcxproj -> C:\dev\git\missile_command\src\Debug\MC_V14.exe
+  MC_V14.vcxproj -> C:\dev\git\missile_command\src\Debug\MC_V14.pdb (Full PDB)

@@ -105,11 +105,11 @@ typedef struct
 
 Powerup powerup;
 
-int POWERUPCOUNTER_MAX = 1500;
-int POWERUPLIFETIME_MAX = 300;
+int POWERUPCOUNTER_MAX    = 1500;
+int POWERUPWANDERTIME_MAX = 300;
 
 int powerup_counter;
-int powerup_lifetime_counter;
+int powerup_wandertime_counter;
 
 BOOL draw_powerup = FALSE;
 
@@ -176,7 +176,7 @@ int WINAPI WinMain(HINSTANCE hinstance, HINSTANCE hprevinstance, LPSTR lpcmdline
 {
 	set_working_directory();
 	setup_window(hinstance);
-    init_font("font12.png");
+    init_font("font.png");
 
     begin_new_game();
 
@@ -298,8 +298,8 @@ static void update_scene()
     // update powerups
     if(draw_powerup)
     {
-        powerup.location_x += cos(powerup_lifetime_counter);
-        powerup.location_y += sin(powerup_lifetime_counter);
+        powerup.location_x += cos(powerup_wandertime_counter);
+        powerup.location_y += sin(powerup_wandertime_counter);
     }
 
     powerup_counter--;
@@ -314,14 +314,14 @@ static void update_scene()
 
         switch (powerup.type)
         {
-            case MEGA_EXPLOSIONS: powerup.c = 'M'; break;
-            case FASTER_MISSILES: powerup.c = 'F'; break;
-            case INFINITE_AMMO:   powerup.c = 'I'; break;
-            case GUIDED_MISSILES: powerup.c = 'G'; break; 
+            case MEGA_EXPLOSIONS: powerup.c = CHAR_MISSILE_M; break;
+            case FASTER_MISSILES: powerup.c = CHAR_FLAME; break;
+            case INFINITE_AMMO:   powerup.c = CHAR_INFINITY; break;
+            case GUIDED_MISSILES: powerup.c = CHAR_SHIELD; break; 
         }
 
         draw_powerup = TRUE;
-        powerup_lifetime_counter = POWERUPLIFETIME_MAX;
+        powerup_wandertime_counter = POWERUPWANDERTIME_MAX;
     }
 
 	// update explosions
@@ -402,7 +402,7 @@ static void draw_scene()
 
     if (is_paused)
     {
-		draw_string("PAUSED", (buffer_width - 66) / 2, (buffer_height - 12) / 2, COLOR_WHITE);
+		draw_string("PAUSED", (buffer_width - 66) / 2, (buffer_height - 12) / 2,2.0f, COLOR_WHITE);
         return;
     }
 
@@ -417,9 +417,9 @@ static void draw_scene()
     draw_rect8(MISSILE_BASE_B_SRC_X-10,buffer_height - 20,20,20,COLOR_BLUE,TRUE);
     draw_rect8(MISSILE_BASE_C_SRC_X-10,buffer_height - 20,20,20,COLOR_BLUE,TRUE);
 
-	draw_char('Z',MISSILE_BASE_A_SRC_X - GLYPH_WIDTH/2, buffer_height - 20 + GLYPH_HEIGHT/2, COLOR_GREY );
-	draw_char('X', MISSILE_BASE_B_SRC_X - GLYPH_WIDTH / 2, buffer_height - 20 + GLYPH_HEIGHT / 2, COLOR_GREY);
-	draw_char('C', MISSILE_BASE_C_SRC_X - GLYPH_WIDTH / 2, buffer_height - 20 + GLYPH_HEIGHT / 2, COLOR_GREY);
+	draw_char_scaled('Z',MISSILE_BASE_A_SRC_X - GLYPH_WIDTH/2, buffer_height - 20 + GLYPH_HEIGHT/2, 2.0f,COLOR_GREY );
+	draw_char_scaled('X', MISSILE_BASE_B_SRC_X - GLYPH_WIDTH / 2, buffer_height - 20 + GLYPH_HEIGHT / 2, 2.0f,COLOR_GREY);
+	draw_char_scaled('C', MISSILE_BASE_C_SRC_X - GLYPH_WIDTH / 2, buffer_height - 20 + GLYPH_HEIGHT / 2, 2.0f,COLOR_GREY);
 
     // draw missiles
     for(int i = 0; i < missile_count_player; ++i)
@@ -433,22 +433,22 @@ static void draw_scene()
 		draw_pixel8(player_missiles[i].destination_x + 1, player_missiles[i].destination_y - 1, COLOR_GREY, 1.0f);
 		draw_pixel8(player_missiles[i].destination_x + 1, player_missiles[i].destination_y + 1, COLOR_GREY, 1.0f);
 
-        draw_char(MISSILE_CHAR,player_missiles[i].location_x - 4,player_missiles[i].location_y - 8,COLOR_GREEN);  // @TEMP
+        draw_char_scaled(CHAR_MISSILE,player_missiles[i].location_x - 4,player_missiles[i].location_y - 8,2.0f,COLOR_GREEN);
     }
 
     for(int i = 0; i < missile_count_enemy; ++i)
     {
 		draw_line2(enemy_missiles[i].base_x, enemy_missiles[i].base_y, enemy_missiles[i].location_x, enemy_missiles[i].location_y, COLOR_RED);
-        draw_char(MISSILE_CHAR,enemy_missiles[i].location_x - MISSILE_WIDTH /2 ,enemy_missiles[i].location_y - MISSILE_HEIGHT / 2,COLOR_RED);  // @TEMP
+        draw_char_scaled(CHAR_MISSILE_R,enemy_missiles[i].location_x - GLYPH_WIDTH /2 ,enemy_missiles[i].location_y - GLYPH_HEIGHT / 2,2.0f,COLOR_RED);  // @TEMP
     }
 
     // draw powerup(s)
     if(draw_powerup)
     {
-        draw_char(powerup.c,powerup.location_x,powerup.location_y,COLOR_PURPLE);
+        draw_char_scaled(powerup.c,powerup.location_x,powerup.location_y,2.0f,COLOR_PURPLE);
 
-        powerup_lifetime_counter--;
-        if(powerup_lifetime_counter == 0)
+        powerup_wandertime_counter--;
+        if(powerup_wandertime_counter == 0)
             draw_powerup = FALSE;
     }
 
@@ -457,19 +457,19 @@ static void draw_scene()
     {
         if((player_powerups & MEGA_EXPLOSIONS) == MEGA_EXPLOSIONS)
         {
-            draw_char('M',buffer_width-GLYPH_WIDTH-2,GLYPH_HEIGHT*2 + 2,COLOR_WHITE);
+            draw_char_scaled(CHAR_MISSILE_M,buffer_width-GLYPH_WIDTH-2,GLYPH_HEIGHT*2 + 2,2.0f,COLOR_WHITE);
         }
         if((player_powerups & FASTER_MISSILES) == FASTER_MISSILES)
         {
-            draw_char('F',buffer_width-2*GLYPH_WIDTH-4,GLYPH_HEIGHT*2 + 2,COLOR_WHITE);
+            draw_char_scaled(CHAR_FLAME,buffer_width-2*GLYPH_WIDTH-4,GLYPH_HEIGHT*2 + 2,2.0f,COLOR_WHITE);
         }
         if((player_powerups & INFINITE_AMMO) == INFINITE_AMMO)
         {
-            draw_char('I',buffer_width-3*GLYPH_WIDTH-6,GLYPH_HEIGHT*2 + 2,COLOR_WHITE);
+            draw_char_scaled(CHAR_INFINITY,buffer_width-3*GLYPH_WIDTH-6,GLYPH_HEIGHT*2 + 2,2.0f,COLOR_WHITE);
         }
         if((player_powerups & GUIDED_MISSILES) == GUIDED_MISSILES)
         {
-            draw_char('G',buffer_width-4*GLYPH_WIDTH-8,GLYPH_HEIGHT*2 + 2,COLOR_WHITE);
+            draw_char_scaled(CHAR_SHIELD,buffer_width-4*GLYPH_WIDTH-8,GLYPH_HEIGHT*2 + 2,2.0f,COLOR_WHITE);
         }
     }
     
@@ -480,34 +480,34 @@ static void draw_scene()
 	}
     
     //draw hud
-	draw_string("SCORE:", 2, 2, COLOR_WHITE);
+	draw_string("SCORE:", 2, 2, 2.0f, COLOR_WHITE);
 	char* pscore_str = to_string(PLAYER_SCORE);
-    draw_string(pscore_str,66,2,COLOR_GREEN);
+    draw_string(pscore_str,66,2,2.0f, COLOR_GREEN);
 	free(pscore_str);
 
-	draw_string("WAVE:", 2, 18, COLOR_WHITE);
+	draw_string("WAVE:", 2, 18, 2.0f, COLOR_WHITE);
 	char* current_wave_str = to_string(current_wave + 1);
-	draw_string(current_wave_str,55,18, COLOR_GREEN);
+	draw_string(current_wave_str,55,18, 2.0f, COLOR_GREEN);
 	free(current_wave_str);
 
 	//draw_string("Z,X,C to shoot", 2, 34, COLOR_WHITE);
-	draw_string("P to pause",   2, 34, COLOR_WHITE);
-	draw_string("R to restart", 2, 50, COLOR_WHITE);
+	draw_string("P to pause",   2, 34, 2.0f, COLOR_WHITE);
+	draw_string("R to restart", 2, 50, 2.0f, COLOR_WHITE);
 
-    draw_string("MISSILES:", buffer_width - 146, 2, COLOR_WHITE);
+    draw_string("MISSILES:", buffer_width - 146, 2, 2.0f,COLOR_WHITE);
 	char* available_missiles_str = to_string(AVAILABLE_MISSILES);
-    draw_string(available_missiles_str,buffer_width - 48,2,COLOR_GREEN);
+    draw_string(available_missiles_str,buffer_width - 48,2,2.0f,COLOR_GREEN);
 	free(available_missiles_str);
 
     // draw new wave text
     if (show_wave_text)
     {
-        draw_string("WAVE ",(buffer_width - 66) / 2, (buffer_height - 12) / 2, COLOR_WHITE);
-		draw_string(to_string(current_wave + 1), (buffer_width - 66) / 2 + 55, (buffer_height - 12) / 2, COLOR_WHITE);
+        draw_string("WAVE ",(buffer_width - 66) / 2, (buffer_height - 12) / 2,2.0f, COLOR_WHITE);
+		draw_string(to_string(current_wave + 1), (buffer_width - 66) / 2 + 55, (buffer_height - 12) / 2,2.0f, COLOR_WHITE);
     }
     
 	if (is_gameover)
-		draw_string("GAME OVER", (buffer_width - 99) / 2, (buffer_height - 12) / 2, COLOR_WHITE);
+		draw_string("GAME OVER", (buffer_width - 99) / 2, (buffer_height - 12) / 2,2.0f, COLOR_WHITE);
     
 	// draw cursor
 	draw_line2(curr_pt.x - CURSOR_RADIUS, curr_pt.y, curr_pt.x + CURSOR_RADIUS, curr_pt.y, COLOR_GREEN);

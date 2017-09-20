@@ -50,7 +50,7 @@ void free_font()
 	stbi_image_free(fontdata);
 }
 
-void draw_char_scaled(const char c, int x, int y, float scale_factor, char color)
+void draw_char_scaled(const unsigned char c, int x, int y, float scale_factor, char color)
 {
     if (!font_initialized)
         return;

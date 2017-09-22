@@ -34,7 +34,7 @@ static void draw_rect8(int x, int y, int w, int h, char color, BOOL filled)
         memset(dst,color,w);
     }
 }
-static void draw_pixel8(int x, int y, int color, double c)
+static void draw_pixel8(int x, int y, unsigned char color)
 {
 	// c is brightness. 0 <= c <= 1
 	unsigned char* dst = (unsigned char*)back_buffer;
@@ -46,21 +46,7 @@ static void draw_pixel8(int x, int y, int color, double c)
 	if (dst > (unsigned char*)back_buffer + (buffer_width*buffer_height))
 		return;
 
-	unsigned char dstcolor = *dst;
-
-	int sr = (color >> 16 & 0x000000FF);
-	int sg = (color >> 8 & 0x000000FF);
-	int sb = (color & 0x000000FF);
-
-	int dr = (dstcolor >> 16 & 0x000000FF);
-	int dg = (dstcolor >> 8 & 0x000000FF);
-	int db = (dstcolor & 0x000000FF);
-
-	unsigned char r = dr + c * (sr - dr);
-	unsigned char g = dg + c * (sg - dg);
-	unsigned char b = db + c * (sb - db);
-
-	*dst = (r << 16 | g << 8 | b);
+	*dst = color;
 }
 
 static void draw_pixel32(int x, int y, int color, double c)
@@ -85,9 +71,9 @@ static void draw_pixel32(int x, int y, int color, double c)
 	int dg = (dstcolor >> 8 & 0x000000FF);
 	int db = (dstcolor & 0x000000FF);
 
-	unsigned char r = dr + c * (sr - dr);
-	unsigned char g = dg + c * (sg - dg);
-	unsigned char b = db + c * (sb - db);
+	unsigned char r = (unsigned char)(dr + c * (sr - dr));
+	unsigned char g = (unsigned char)(dg + c * (sg - dg));
+	unsigned char b = (unsigned char)(db + c * (sb - db));
 
 	*dst = (r << 16 | g << 8 | b);
 }
@@ -139,14 +125,14 @@ static void draw_line2(int x, int y, int x2, int y2,char color) {
 		if (longLen>0) {
 			longLen+=y;
 			for (int j=0x8000+(x<<16);y<=longLen;++y) {
-                draw_pixel8(j>>16,y,color,1.0f);
+                draw_pixel8(j>>16,y,color);
 				j+=decInc;
 			}
 			return;
 		}
 		longLen+=y;
 		for (int j=0x8000+(x<<16);y>=longLen;--y) {
-            draw_pixel8(j>>16,y,color,1.0f);
+            draw_pixel8(j>>16,y,color);
 			j-=decInc;
 		}
 		return;	
@@ -155,14 +141,14 @@ static void draw_line2(int x, int y, int x2, int y2,char color) {
 	if (longLen>0) {
 		longLen+=x;
 		for (int j=0x8000+(y<<16);x<=longLen;++x) {
-            draw_pixel8(x,j>>16,color,1.0f);
+            draw_pixel8(x,j>>16,color);
 			j+=decInc;
 		}
 		return;
 	}
 	longLen+=x;
 	for (int j=0x8000+(y<<16);x>=longLen;--x) {
-        draw_pixel8(x,j>>16,color,1.0f);
+        draw_pixel8(x,j>>16,color);
 		j-=decInc;
 	}
 
@@ -195,13 +181,13 @@ static void draw_line(int x, int y, int x2, int y2, char color)
 	double j = 0.0;
 	if (yLonger) {
 		for (int i = 0; i != endVal; i += incrementVal) {
-			draw_pixel8(x + (int)j, y + i, color, 1.0f);
+			draw_pixel8(x + (int)j, y + i, color);
 			j += decInc;
 		}
 	}
 	else {
 		for (int i = 0; i != endVal; i += incrementVal) {
-			draw_pixel8(x + i, y + (int)j, color, 1.0f);
+			draw_pixel8(x + i, y + (int)j, color);
 			j += decInc;
 		}
 	}
@@ -270,7 +256,7 @@ static void draw_line_aa(int x0, int y0, int x1, int y1, int color)
 	// main loop
 	if (steep)
 	{
-		for (int x = xpxl1 + 1; x < xpxl2; ++x)
+		for (int x = (int)(xpxl1 + 1); x < xpxl2; ++x)
 		{
 			draw_pixel8(ipart(intery), x,color, rfpart(intery));
 			draw_pixel8(ipart(intery) + 1, x, color, fpart(intery));
@@ -279,7 +265,7 @@ static void draw_line_aa(int x0, int y0, int x1, int y1, int color)
 	}
 	else
 	{
-		for (int x = xpxl1 + 1; x < xpxl2; ++x)
+		for (int x = (int)(xpxl1 + 1); x < xpxl2; ++x)
 		{
 			draw_pixel8(x, ipart(intery), color, rfpart(intery));
 			draw_pixel8(x, ipart(intery) + 1, color, fpart(intery));
@@ -298,21 +284,21 @@ static void draw_circle(int x0, int y0, int r, int color, BOOL filled)
 	{
 		if (filled)
 		{
-			draw_line(x0 + x, y0 + y, x0 - x, y0 + y, color, 1.0f);
-			draw_line(x0 + y, y0 + x, x0 - y, y0 + x, color, 1.0f);
-			draw_line(x0 - x, y0 - y, x0 + x, y0 - y, color, 1.0f);
-			draw_line(x0 - y, y0 - x, x0 + y, y0 - x, color, 1.0f);
+			draw_line(x0 + x, y0 + y, x0 - x, y0 + y, color);
+			draw_line(x0 + y, y0 + x, x0 - y, y0 + x, color);
+			draw_line(x0 - x, y0 - y, x0 + x, y0 - y, color);
+			draw_line(x0 - y, y0 - x, x0 + y, y0 - x, color);
 		}
 		else
 		{
-			draw_pixel8(x0 + x, y0 + y, color, 1.0);
-			draw_pixel8(x0 + y, y0 + x, color, 1.0);
-			draw_pixel8(x0 - y, y0 + x, color, 1.0);
-			draw_pixel8(x0 - x, y0 + y, color, 1.0);
-			draw_pixel8(x0 - x, y0 - y, color, 1.0);
-			draw_pixel8(x0 - y, y0 - x, color, 1.0);
-			draw_pixel8(x0 + y, y0 - x, color, 1.0);
-			draw_pixel8(x0 + x, y0 - y, color, 1.0);
+			draw_pixel8(x0 + x, y0 + y, color);
+			draw_pixel8(x0 + y, y0 + x, color);
+			draw_pixel8(x0 - y, y0 + x, color);
+			draw_pixel8(x0 - x, y0 + y, color);
+			draw_pixel8(x0 - x, y0 - y, color);
+			draw_pixel8(x0 - y, y0 - x, color);
+			draw_pixel8(x0 + y, y0 - x, color);
+			draw_pixel8(x0 + x, y0 - y, color);
 		}
 		
 
@@ -340,11 +326,11 @@ static void draw_ellipse(int origin_x,int origin_y, int w, int h, int color, BOO
 	// do the horizontal diameter
 	if (filled)
 		for (int x = -w; x <= w; x++)
-			draw_pixel8(origin_x + x, origin_y, color, 1.0);
+			draw_pixel8(origin_x + x, origin_y, color);
 	else
 	{
-		draw_pixel8(origin_x - w, origin_y, color, 1.0);
-		draw_pixel8(origin_x + w, origin_y, color, 1.0);
+		draw_pixel8(origin_x - w, origin_y, color);
+		draw_pixel8(origin_x + w, origin_y, color);
 	}
 
 	// now do both halves at the same time, away from the diameter
@@ -361,8 +347,8 @@ static void draw_ellipse(int origin_x,int origin_y, int w, int h, int color, BOO
 		{
 			for (int x = -x0; x <= x0; x++)
 			{
-				draw_pixel8(origin_x + x, origin_y - y, color, 1.0);
-				draw_pixel8(origin_x + x, origin_y + y, color, 1.0);
+				draw_pixel8(origin_x + x, origin_y - y, color);
+				draw_pixel8(origin_x + x, origin_y + y, color);
 			}
 		}
 		else
@@ -370,19 +356,19 @@ static void draw_ellipse(int origin_x,int origin_y, int w, int h, int color, BOO
 			if (dx <= 0)
 			{
 
-				draw_pixel8(origin_x - x0, origin_y - y, color, 1.0);
-				draw_pixel8(origin_x - x0, origin_y + y, color, 1.0);
-				draw_pixel8(origin_x + x0, origin_y - y, color, 1.0);
-				draw_pixel8(origin_x + x0, origin_y + y, color, 1.0);
+				draw_pixel8(origin_x - x0, origin_y - y, color);
+				draw_pixel8(origin_x - x0, origin_y + y, color);
+				draw_pixel8(origin_x + x0, origin_y - y, color);
+				draw_pixel8(origin_x + x0, origin_y + y, color);
 			}
 			else
 			{
 				for (int i = 0; i < dx; ++i)
 				{
-					draw_pixel8(origin_x - x0 - i, origin_y - y, color, 1.0);
-					draw_pixel8(origin_x - x0 - i, origin_y + y, color, 1.0);
-					draw_pixel8(origin_x + x0 + i, origin_y - y, color, 1.0);
-					draw_pixel8(origin_x + x0 + i, origin_y + y, color, 1.0);
+					draw_pixel8(origin_x - x0 - i, origin_y - y, color);
+					draw_pixel8(origin_x - x0 - i, origin_y + y, color);
+					draw_pixel8(origin_x + x0 + i, origin_y - y, color);
+					draw_pixel8(origin_x + x0 + i, origin_y + y, color);
 				}
 			}
 

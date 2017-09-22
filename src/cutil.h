@@ -61,10 +61,10 @@ char* to_string(int i)
 	return str;
 }
 
-float get_distance(float p0_x, float p0_y,float p1_x,float p1_y)
+double get_distance(double p0_x, double p0_y, double p1_x,double p1_y)
 {
-    float x_diff = p1_x - p0_x;
-    float y_diff = p1_y - p0_y;
+    double x_diff = p1_x - p0_x;
+    double y_diff = p1_y - p0_y;
 
     return sqrt(x_diff*x_diff + y_diff*y_diff);
 }

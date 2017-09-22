@@ -1,5 +1,6 @@
 #define WIN32_LEAN_AND_MEAN
 #define GLOBAL_FONT_SCALE 2.0f
+#define MAX_ITEMS 10
 
 #include <windows.h>
 #include <windowsx.h> // for GET_X_LPARAM,GET_Y_LPARAM
@@ -64,9 +65,9 @@ typedef struct
 	float location_y;
     float destination_x;
 	float destination_y;
-	float vel_x;
-	float vel_y;
-	float angle;
+	double vel_x;
+	double vel_y;
+	double angle;
 	float base_x;
 	float base_y;
     float health;
@@ -91,6 +92,8 @@ typedef struct
     float missile_size;
 } Wave;
 Wave waves[11];
+
+// powerups
 
 typedef enum
 {
@@ -120,6 +123,16 @@ int powerup_wandertime_counter;
 
 BOOL draw_powerup = FALSE;
 
+// items
+typedef enum
+{
+    EXTRA_HOUSE = 1
+    ,CLEAR_SCREEN = 2
+    ,PLUS_MISSILES = 4
+} ITEMTYPE;
+
+ITEMTYPE items[MAX_ITEMS];
+
 BOOL mouse_moved = FALSE;
 
 int current_wave;
@@ -128,6 +141,7 @@ int show_wave_text_countdown;
 
 int enemy_missiles_fired;
 int enemy_missiles_blown_up;
+int enemy_missiles_destroyed_this_wave;
 
 Missile   player_missiles[500];
 Missile   enemy_missiles [500];
@@ -210,7 +224,6 @@ int WINAPI WinMain(HINSTANCE hinstance, HINSTANCE hprevinstance, LPSTR lpcmdline
 			TranslateMessage(&msg);
 			DispatchMessage(&msg);
 		}
-
         
         // timer query
 		QueryPerformanceCounter(&t1);
@@ -259,6 +272,8 @@ static void update_scene()
             show_wave_text = FALSE;
             enemy_missiles_fired = 0;
             enemy_missiles_blown_up = 0;
+            enemy_missiles_destroyed_this_wave = 0;
+
         }
     }
     
@@ -267,7 +282,7 @@ static void update_scene()
 	{
 		if (player_missiles[i].location_y <= player_missiles[i].destination_y)
 		{
-			add_explosion(player_missiles[i].location_x, player_missiles[i].location_y,PLAYER_EXPLOSION_MAX_RADIUS);
+			add_explosion(player_missiles[i].location_x, player_missiles[i].location_y,(float)PLAYER_EXPLOSION_MAX_RADIUS);
 			remove_missile(i);
 		}
 		player_missiles[i].location_x += player_missiles[i].vel_x * PLAYER_MISSILE_SPEED;
@@ -339,10 +354,10 @@ static void update_scene()
 
         for (int j = 0; j < missile_count_enemy; ++j)
         {
-			float d1 = get_distance(enemy_missiles[j].location_x, enemy_missiles[j].location_y, explosions[i].location_x, explosions[i].location_y);
-			float d2 = get_distance(enemy_missiles[j].location_x + GLYPH_WIDTH*GLOBAL_FONT_SCALE , enemy_missiles[j].location_y + GLYPH_HEIGHT*GLOBAL_FONT_SCALE, explosions[i].location_x, explosions[i].location_y);
-			float d3 = get_distance(enemy_missiles[j].location_x + GLYPH_WIDTH*GLOBAL_FONT_SCALE, enemy_missiles[j].location_y, explosions[i].location_x, explosions[i].location_y);
-			float d4 = get_distance(enemy_missiles[j].location_x, enemy_missiles[j].location_y+GLYPH_HEIGHT*GLOBAL_FONT_SCALE, explosions[i].location_x, explosions[i].location_y);
+			double d1 = get_distance(enemy_missiles[j].location_x, enemy_missiles[j].location_y, explosions[i].location_x, explosions[i].location_y);
+			double d2 = get_distance(enemy_missiles[j].location_x + GLYPH_WIDTH*GLOBAL_FONT_SCALE, enemy_missiles[j].location_y + GLYPH_HEIGHT*GLOBAL_FONT_SCALE, explosions[i].location_x, explosions[i].location_y);
+			double d3 = get_distance(enemy_missiles[j].location_x + GLYPH_WIDTH*GLOBAL_FONT_SCALE, enemy_missiles[j].location_y, explosions[i].location_x, explosions[i].location_y);
+			double d4 = get_distance(enemy_missiles[j].location_x, enemy_missiles[j].location_y + GLYPH_HEIGHT*GLOBAL_FONT_SCALE, explosions[i].location_x, explosions[i].location_y);
 
             if (d1 <= explosions[i].radius || d2 <= explosions[i].radius || d3 <= explosions[i].radius || d4 <= explosions[i].radius)
             {
@@ -358,6 +373,7 @@ static void update_scene()
         for (int j = 0; j < missiles_to_remove_count; ++j)
         {
             remove_enemy_missile(missiles_to_remove[j]);
+            enemy_missiles_destroyed_this_wave++;
 
             if(!is_gameover)
                 PLAYER_SCORE += 100;
@@ -366,10 +382,10 @@ static void update_scene()
         // check for collision with powerups
         if (draw_powerup)
         {
-            float d1 = get_distance(powerup.location_x,powerup.location_y,explosions[i].location_x, explosions[i].location_y);
-            float d2 = get_distance(powerup.location_x+GLYPH_WIDTH*GLOBAL_FONT_SCALE,powerup.location_y+GLYPH_HEIGHT*GLOBAL_FONT_SCALE,explosions[i].location_x, explosions[i].location_y);
-            float d3 = get_distance(powerup.location_x+GLYPH_WIDTH*GLOBAL_FONT_SCALE,powerup.location_y,explosions[i].location_x, explosions[i].location_y);
-            float d4 = get_distance(powerup.location_x,powerup.location_y+GLYPH_HEIGHT*GLOBAL_FONT_SCALE,explosions[i].location_x, explosions[i].location_y);
+			double d1 = get_distance(powerup.location_x, powerup.location_y, explosions[i].location_x, explosions[i].location_y);
+			double d2 = get_distance(powerup.location_x + GLYPH_WIDTH*GLOBAL_FONT_SCALE, powerup.location_y + GLYPH_HEIGHT*GLOBAL_FONT_SCALE, explosions[i].location_x, explosions[i].location_y);
+			double d3 = get_distance(powerup.location_x + GLYPH_WIDTH*GLOBAL_FONT_SCALE, powerup.location_y, explosions[i].location_x, explosions[i].location_y);
+			double d4 = get_distance(powerup.location_x, powerup.location_y + GLYPH_HEIGHT*GLOBAL_FONT_SCALE, explosions[i].location_x, explosions[i].location_y);
 
             if(d1 <= explosions[i].radius || d2 <= explosions[i].radius || d3 <= explosions[i].radius || d4 <= explosions[i].radius)
             {
@@ -380,7 +396,7 @@ static void update_scene()
             }
         }
         
-        float house_r = HOUSE_WIDTH / 2;
+        float house_r = HOUSE_WIDTH / 2.0f;
 
         // check to see if it hit a house
         for(int j = NUM_HOUSES-1; j >= 0;--j)
@@ -425,33 +441,40 @@ static void draw_scene()
     } 
 
     // draw missile bases
-    draw_rect8(MISSILE_BASE_A_SRC_X-10,buffer_height - 20,20,20,COLOR_BLUE,TRUE);
-    draw_rect8(MISSILE_BASE_B_SRC_X-10,buffer_height - 20,20,20,COLOR_BLUE,TRUE);
-    draw_rect8(MISSILE_BASE_C_SRC_X-10,buffer_height - 20,20,20,COLOR_BLUE,TRUE);
+    draw_rect8((int)(MISSILE_BASE_A_SRC_X - 10),buffer_height - 20,20,20,COLOR_BLUE,TRUE);
+	draw_rect8((int)(MISSILE_BASE_B_SRC_X - 10), buffer_height - 20, 20, 20, COLOR_BLUE, TRUE);
+	draw_rect8((int)(MISSILE_BASE_C_SRC_X - 10), buffer_height - 20, 20, 20, COLOR_BLUE, TRUE);
 
-	draw_char_scaled('Z',MISSILE_BASE_A_SRC_X - GLYPH_WIDTH*GLOBAL_FONT_SCALE/2, buffer_height - 20 + GLYPH_HEIGHT*GLOBAL_FONT_SCALE/2,GLOBAL_FONT_SCALE,COLOR_GREY );
-	draw_char_scaled('X', MISSILE_BASE_B_SRC_X - GLYPH_WIDTH*GLOBAL_FONT_SCALE / 2, buffer_height - 20 + GLYPH_HEIGHT*GLOBAL_FONT_SCALE / 2,GLOBAL_FONT_SCALE,COLOR_GREY);
-	draw_char_scaled('C', MISSILE_BASE_C_SRC_X - GLYPH_WIDTH*GLOBAL_FONT_SCALE / 2, buffer_height - 20 + GLYPH_HEIGHT*GLOBAL_FONT_SCALE / 2,GLOBAL_FONT_SCALE,COLOR_GREY);
+	draw_char_scaled('Z', (int)(MISSILE_BASE_A_SRC_X - GLYPH_WIDTH*GLOBAL_FONT_SCALE / 2), (int)(buffer_height - 20 + GLYPH_HEIGHT*GLOBAL_FONT_SCALE / 2), GLOBAL_FONT_SCALE, COLOR_GREY);
+	draw_char_scaled('X', (int)(MISSILE_BASE_B_SRC_X - GLYPH_WIDTH*GLOBAL_FONT_SCALE / 2), (int)(buffer_height - 20 + GLYPH_HEIGHT*GLOBAL_FONT_SCALE / 2), GLOBAL_FONT_SCALE, COLOR_GREY);
+	draw_char_scaled('C', (int)(MISSILE_BASE_C_SRC_X - GLYPH_WIDTH*GLOBAL_FONT_SCALE / 2), (int)(buffer_height - 20 + GLYPH_HEIGHT*GLOBAL_FONT_SCALE / 2), GLOBAL_FONT_SCALE, COLOR_GREY);
 
     // draw missiles
     for(int i = 0; i < missile_count_player; ++i)
     {
-		draw_line2(player_missiles[i].base_x, player_missiles[i].base_y, player_missiles[i].location_x, player_missiles[i].location_y, COLOR_BLUE);
+		draw_line2((int)player_missiles[i].base_x, (int)player_missiles[i].base_y, (int)player_missiles[i].location_x, (int)player_missiles[i].location_y, COLOR_BLUE);
         
         // draw target crosshair
-		draw_pixel8(player_missiles[i].destination_x, player_missiles[i].destination_y, COLOR_GREY, 1.0f);
-		draw_pixel8(player_missiles[i].destination_x - 1, player_missiles[i].destination_y - 1, COLOR_GREY, 1.0f);
-		draw_pixel8(player_missiles[i].destination_x - 1, player_missiles[i].destination_y + 1, COLOR_GREY, 1.0f);
-		draw_pixel8(player_missiles[i].destination_x + 1, player_missiles[i].destination_y - 1, COLOR_GREY, 1.0f);
-		draw_pixel8(player_missiles[i].destination_x + 1, player_missiles[i].destination_y + 1, COLOR_GREY, 1.0f);
+		draw_pixel8((int)player_missiles[i].destination_x, (int)player_missiles[i].destination_y, COLOR_GREY);
+		draw_pixel8((int)player_missiles[i].destination_x - 1, (int)player_missiles[i].destination_y - 1, COLOR_GREY);
+		draw_pixel8((int)player_missiles[i].destination_x - 1, (int)player_missiles[i].destination_y + 1, COLOR_GREY);
+		draw_pixel8((int)player_missiles[i].destination_x + 1, (int)player_missiles[i].destination_y - 1, COLOR_GREY);
+		draw_pixel8((int)player_missiles[i].destination_x + 1, (int)player_missiles[i].destination_y + 1, COLOR_GREY);
 
         unsigned char missile_char;
+        float player_missile_scale;
         if((player_powerups & MEGA_EXPLOSIONS) == MEGA_EXPLOSIONS)
+        {
             missile_char = CHAR_MISSILE_M;
+            player_missile_scale = GLOBAL_FONT_SCALE*2;
+        }
         else
+        {
             missile_char = CHAR_MISSILE;
+            player_missile_scale = GLOBAL_FONT_SCALE;
+        }
 
-        draw_char_scaled(missile_char,player_missiles[i].location_x - 4,player_missiles[i].location_y - 8,GLOBAL_FONT_SCALE,COLOR_GREEN);
+		draw_char_scaled(missile_char, (int)(player_missiles[i].location_x - GLYPH_WIDTH*GLOBAL_FONT_SCALE / 2), (int)(player_missiles[i].location_y - GLYPH_HEIGHT*GLOBAL_FONT_SCALE / 2), GLOBAL_FONT_SCALE, COLOR_GREEN);
     }
 
     if(current_wave == 10)
@@ -619,71 +642,71 @@ static void init_houses()
 static void init_waves()
 {
     waves[0].missile_count = 10;
-    waves[0].missile_speed = 1.0f;
-    waves[0].missile_period = 150;
+    waves[0].missile_speed = 0.7f;
+    waves[0].missile_period = 100;
     waves[0].missile_size  = 2.0f;
     waves[0].explosion_radius = 60;
     waves[0].missile_health = 1;
 
     waves[1].missile_count = 15;
-    waves[1].missile_speed = 1.5f;
-    waves[1].missile_period = 125;
+    waves[1].missile_speed = 1.0f;
+    waves[1].missile_period = 90;
     waves[1].missile_size  = 2.0f;
     waves[1].explosion_radius = 60;
     waves[1].missile_health = 1;
 
     waves[2].missile_count = 20;
-    waves[2].missile_speed = 2.0f;
-    waves[2].missile_period = 100;
+    waves[2].missile_speed = 1.3f;
+    waves[2].missile_period = 80;
     waves[2].missile_size  = 2.0f;
     waves[2].explosion_radius = 60;
     waves[2].missile_health = 1;
     
-    waves[3].missile_count = 30;
-    waves[3].missile_speed = 2.5f;
-    waves[3].missile_period = 80;
+    waves[3].missile_count = 25;
+    waves[3].missile_speed = 1.6f;
+    waves[3].missile_period = 70;
     waves[3].missile_size  = 2.0f;
     waves[3].explosion_radius = 60;
     waves[3].missile_health = 1;
     
-    waves[4].missile_count = 40;
-    waves[4].missile_speed = 3.0f;
-    waves[4].missile_period = 70;
+    waves[4].missile_count = 30;
+    waves[4].missile_speed = 2.0f;
+    waves[4].missile_period = 60;
     waves[4].missile_size  = 2.0f;
     waves[4].explosion_radius = 60;
     waves[4].missile_health = 1;
     
-    waves[5].missile_count = 50;
-    waves[5].missile_speed = 3.5f;
-    waves[5].missile_period = 60;
+    waves[5].missile_count = 35;
+    waves[5].missile_speed = 2.3f;
+    waves[5].missile_period = 50;
     waves[5].missile_size  = 2.0f;
     waves[5].explosion_radius = 60;
     waves[5].missile_health = 1;
     
-    waves[6].missile_count = 60;
-    waves[6].missile_speed = 4.0f;
-    waves[6].missile_period = 50; 
+    waves[6].missile_count = 40;
+    waves[6].missile_speed = 2.6f;
+    waves[6].missile_period = 40; 
     waves[6].missile_size  = 2.0f;
     waves[6].explosion_radius = 60;
     waves[6].missile_health = 1;
     
-    waves[7].missile_count = 70;
-    waves[7].missile_speed = 4.5f;
+    waves[7].missile_count = 50;
+    waves[7].missile_speed = 3.0f;
     waves[7].missile_period = 30;
     waves[7].missile_size  = 2.0f;
     waves[7].explosion_radius = 60;
     waves[7].missile_health = 1;
     
-    waves[8].missile_count = 85;
-    waves[8].missile_speed = 5.0f;
-    waves[8].missile_period = 22;
+    waves[8].missile_count = 60;
+    waves[8].missile_speed = 3.3f;
+    waves[8].missile_period = 20;
     waves[8].missile_size  = 2.0f;
     waves[8].explosion_radius = 60;
     waves[8].missile_health = 1;
 
-    waves[9].missile_count = 100;
-    waves[9].missile_speed = 5.5f;
-    waves[9].missile_period = 15;
+    waves[9].missile_count = 70;
+    waves[9].missile_speed = 3.6f;
+    waves[9].missile_period = 10;
     waves[9].missile_size  = 2.0f;
     waves[9].explosion_radius = 60;
     waves[9].missile_health = 1;
@@ -759,15 +782,15 @@ static void add_missile(MISSILE_BASE _base)
 		case C: src_x = MISSILE_BASE_C_SRC_X; break;
 	}
 	
-	float dst_x = curr_pt.x;
-	float dst_y = curr_pt.y;
+	float dst_x = (float)curr_pt.x;
+	float dst_y = (float)curr_pt.y;
 
-	float delta_x = abs(dst_x - src_x);
-	float delta_y = abs(dst_y - src_y);
+	float delta_x = (float)abs(dst_x - src_x);
+	float delta_y = (float)abs(dst_y - src_y);
 
-	float angle = atan(delta_y / delta_x);
-	float vel_x = cos(angle);
-	float vel_y = sin(angle);
+	double angle = atan(delta_y / delta_x);
+	double vel_x = cos(angle);
+	double vel_y = sin(angle);
 	
 	if (dst_x < src_x) vel_x *= -1;
 
@@ -796,12 +819,12 @@ static void add_enemy_missile()
     int src_y = 0;
     int dst_y = buffer_height - 16;
 
-	float delta_x = abs(dst_x - src_x);
-	float delta_y = abs(dst_y - src_y);
+	float delta_x = (float)abs(dst_x - src_x);
+	float delta_y = (float)abs(dst_y - src_y);
 
-	float angle = atan(delta_y / delta_x);
-	float vel_x = cos(angle);
-	float vel_y = sin(angle);
+	double angle = atan(delta_y / delta_x);
+	double vel_x = cos(angle);
+	double vel_y = sin(angle);
 	
 	if (dst_x < src_x) vel_x *= -1;
 
@@ -839,7 +862,7 @@ static void remove_enemy_missile(int i)
             show_wave_text = TRUE;
             show_wave_text_countdown = 300;
             current_wave++;
-            AVAILABLE_MISSILES += 25;
+            AVAILABLE_MISSILES += (enemy_missiles_destroyed_this_wave*2); 
         }
     }
 }

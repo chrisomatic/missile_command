@@ -207,7 +207,7 @@ int WINAPI WinMain(HINSTANCE hinstance, HINSTANCE hprevinstance, LPSTR lpcmdline
 	setup_window(hinstance);
     init_font("font.png");
 
-    game_state = TITLE;
+    game_state = PLAYING;
     begin_new_game();
 
 	srand(time(NULL));
@@ -238,16 +238,13 @@ int WINAPI WinMain(HINSTANCE hinstance, HINSTANCE hprevinstance, LPSTR lpcmdline
         // timer query
 		QueryPerformanceCounter(&t1);
 		__int64 interval = t1.QuadPart - t0.QuadPart;
-		double  seconds_gone_by = seconds_per_tick * (double)interval;
+		double seconds_gone_by = seconds_per_tick * (double)interval;
 
 		accum_time += seconds_gone_by;
 
 		if (accum_time >= target_spf)
 		{
 			accum_time -= target_spf;
-
-            // Clear buffer to bg_color 
-            memset(back_buffer,COLOR_BLACK, buffer_width*buffer_height*BYTES_PER_PIXEL);
 
             update_scene();
             draw_scene();
@@ -450,6 +447,9 @@ static void update_scene()
 
 static void draw_scene()
 {
+    // Clear buffer to bg_color 
+    memset(back_buffer,COLOR_BLACK, buffer_width*buffer_height*BYTES_PER_PIXEL);
+
     switch(game_state)
     {
         case TITLE:
@@ -495,8 +495,13 @@ static void draw_scene()
             // draw missiles
             for(int i = 0; i < missile_count_player; ++i)
             {
-                draw_line2((int)player_missiles[i].base_x, (int)player_missiles[i].base_y, (int)player_missiles[i].location_x, (int)player_missiles[i].location_y, COLOR_BLUE);
+                char missile_line_color;
+                if((player_powerups & FASTER_MISSILES) == FASTER_MISSILES)
+                    missile_line_color = COLOR_PURPLE;
+                else
+                    missile_line_color = COLOR_BLUE;
                 
+                draw_line2((int)player_missiles[i].base_x, (int)player_missiles[i].base_y, (int)player_missiles[i].location_x, (int)player_missiles[i].location_y, missile_line_color);
                 // draw target crosshair
                 draw_pixel8((int)player_missiles[i].destination_x, (int)player_missiles[i].destination_y, COLOR_GREY);
                 draw_pixel8((int)player_missiles[i].destination_x - 1, (int)player_missiles[i].destination_y - 1, COLOR_GREY);
@@ -506,18 +511,22 @@ static void draw_scene()
 
                 unsigned char missile_char;
                 float player_missile_scale;
+                char missile_color;
+
                 if((player_powerups & MEGA_EXPLOSIONS) == MEGA_EXPLOSIONS)
                 {
                     missile_char = CHAR_MISSILE_M;
                     player_missile_scale = GLOBAL_FONT_SCALE*2;
+                    missile_color = COLOR_GREY;
                 }
                 else
                 {
                     missile_char = CHAR_MISSILE;
                     player_missile_scale = GLOBAL_FONT_SCALE;
+                    missile_color = COLOR_GREEN;
                 }
 
-                draw_char_scaled(missile_char, (int)(player_missiles[i].location_x - GLYPH_WIDTH*GLOBAL_FONT_SCALE / 2), (int)(player_missiles[i].location_y - GLYPH_HEIGHT*GLOBAL_FONT_SCALE / 2), GLOBAL_FONT_SCALE, COLOR_GREEN);
+                draw_char_scaled(missile_char, (int)(player_missiles[i].location_x - GLYPH_WIDTH*GLOBAL_FONT_SCALE / 2), (int)(player_missiles[i].location_y - GLYPH_HEIGHT*GLOBAL_FONT_SCALE / 2), GLOBAL_FONT_SCALE, missile_color);
             }
 
             if(current_wave == 10)
@@ -1090,7 +1099,7 @@ static LRESULT CALLBACK MainWndProc(HWND hwnd, UINT umsg, WPARAM wparam, LPARAM 
                 title_selection = max(0,title_selection);
                 title_selection = min(2,title_selection);
 
-                if(wparam == VK_ENTER)
+                if(wparam == VK_RETURN)
                 {
 
                 }

@@ -1,3 +1,47 @@
+#define STB_IMAGE_IMPLEMENTATION
+#define STBI_ONLY_PNG 
+#include "stb_image.h"
+
+//    int x,y,n;
+//    unsigned char *data = stbi_load(filename, &x, &y, &n, 0);
+//    // ... process data if not NULL ...
+//    // ... x = width, y = height, n = # 8-bit components per pixel ...
+//    // ... replace '0' with '1'..'4' to force that many components per pixel
+//    // ... but 'n' will always be the number that it would have been if you said 0
+//    stbi_image_free(data)
+
+static BOOL draw_image(const char* image_path,int x, int y,float scale)
+{
+    int w,h,n;
+    unsigned char *imgdata = stbi_load(image_path,&w,&h,&n,1);
+
+    if(imgdata == NULL)
+        return FALSE;
+
+    unsigned char* dst = back_buffer;
+    dst = dst + (buffer_width*y) + x;
+
+    int dst_w = w*scale;
+    int dst_h = h*scale;
+
+    if( x < 0 || x + dst_w > buffer_width)  return;
+    if( y < 0 || y + dst_h > buffer_height) return;
+
+    for(int i = 0; i < dst_w;++i)
+    {
+        for(int j = 0; j < dst_h;++j)
+        {
+
+            int index = floor((i*dst_w + j)/scale);
+            unsigned char color = *(imgdata + index);
+
+            *dst++ = color;
+        }
+    }
+
+    return TRUE;
+}
+
 static void draw_rect8(int x, int y, int w, int h, char color, BOOL filled)
 {
     unsigned char* dst = (unsigned char*)back_buffer;
